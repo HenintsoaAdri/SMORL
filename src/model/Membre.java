@@ -52,7 +52,7 @@ public class Membre {
 	}
 
 	public void setNom(String nom) throws Exception{
-		if(!StringUtil.fullLetter(nom)) throw new Exception("Votre nom contient des caractères spéciaux");
+		if(!StringUtil.fullLetter(nom)) throw new Exception("Nom contient des caractères spéciaux");
 		else if(nom.isEmpty()) throw new Exception("Veuillez insérer un nom");
 		this.nom = nom;
 	}
@@ -62,7 +62,7 @@ public class Membre {
 	}
 
 	public void setPrenom(String prenom) throws Exception {
-		if(!StringUtil.fullLetter(prenom)) throw new Exception("Votre prénom contient des caractères spéciaux");
+		if(!StringUtil.fullLetter(prenom)) throw new Exception("Prénom contient des caractères spéciaux");
 		this.prenom = prenom;
 	}
 	public String getFullName() {
@@ -130,14 +130,15 @@ public class Membre {
 	}
 
 	public void setEmail(String email) throws Exception {
-		if(!StringUtil.isEmail(email))throw new Exception("Votre email est invalide");
+		if(!StringUtil.isEmail(email))throw new Exception("Adresse email invalide");
 		this.email = email;
 	}
 	public String getTelephone() {
 		return telephone;
 	}
 
-	public void setTelephone(String telephone) {
+	public void setTelephone(String telephone) throws Exception {
+		if(!StringUtil.isTelephone(telephone))throw new Exception("Numero de telephone invalide");
 		this.telephone = telephone;
 	}
 

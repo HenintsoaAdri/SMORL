@@ -11,12 +11,8 @@ import model.PaiementCotisation;
 import model.EtatCotisation;
 
 public class Creation {
-
-	public Creation() {
-		// TODO Auto-generated constructor stub
-	}
 	
-	public static Membre creerMembre(ResultSet res) throws SQLException{
+	public static Membre creerMembre(ResultSet res) throws Exception{
 		Membre model = new Membre(
 				res.getInt("IDMEMBRE"), 
 				res.getString("NOM"), 
@@ -48,7 +44,7 @@ public class Creation {
 		return model;
 	}
 	
-	public static PaiementCongres creerPaiementCongres(ResultSet res) throws SQLException{
+	public static PaiementCongres creerPaiementCongres(ResultSet res) throws Exception{
 		PaiementCongres model = new PaiementCongres(
 				res.getInt("IDPAIEMENTCONGRES"), 
 				res.getDate("DATEPAIEMENT"), 
@@ -58,7 +54,7 @@ public class Creation {
 		return model;
 	}
 	
-	public static PaiementCotisation creerPaiementCotisation(ResultSet res) throws SQLException{
+	public static PaiementCotisation creerPaiementCotisation(ResultSet res) throws Exception{
 		PaiementCotisation model = new PaiementCotisation(
 				res.getInt("IDPAIEMENTCOTISATION"), 
 				res.getDate("DATEPAIEMENT"), 
@@ -68,7 +64,7 @@ public class Creation {
 		return model;
 	}
 	
-	public static EtatCotisation creerEtatCotisation(ResultSet res) throws SQLException{
+	public static EtatCotisation creerEtatCotisation(ResultSet res) throws Exception{
 		EtatCotisation model = new EtatCotisation(
 				res.getInt("IDETATCOTISATION"), 
 				res.getString("LIBELLE"), 
