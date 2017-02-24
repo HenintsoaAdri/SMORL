@@ -1,14 +1,9 @@
 package utilitaire;
-import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-import javax.crypto.*;
-import javax.crypto.spec.SecretKeySpec;
-
-import sun.misc.*;
 public class StringUtil {
 	
 	public static boolean fullLetter(String string){

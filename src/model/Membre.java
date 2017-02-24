@@ -39,6 +39,21 @@ public class Membre {
 		this.setCapacite(capacite);
 	}
 
+	public Membre(String nom, String prenom, String dateNaissance, String sexe, String email, String telephone, String adresse,
+			String profession, String capacite) throws Exception {
+		super();
+		this.setId(id);
+		this.setNom(prenom);
+		this.setPrenom(prenom);
+		this.setDateNaissance(dateNaissance);
+		this.setSexe(sexe);
+		this.setEmail(email);
+		this.setTelephone(telephone);
+		this.setAdresse(adresse);
+		this.setProfession(profession);
+		this.setCapacite(capacite);
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -165,5 +180,10 @@ public class Membre {
 	public void setCapacite(String capacite) {
 		this.capacite = capacite;
 	}
-
+	public String getInformation(){
+		return getProfession() + " - " + getCapacite();
+	}
+	public String getContact(){
+		return getTelephone() + "\n" + getEmail();
+	}
 }
