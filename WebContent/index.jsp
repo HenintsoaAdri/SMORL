@@ -9,11 +9,12 @@
 </head>
 <body>
 	<div class="container">
+		<hr>
 	  <div class="row">
 		<div class="btn-group-vertical col-sm-6 col-sm-offset-3">
 		  <a href="Membre" class="btn btn-lg btn-primary">Liste des membres</a>
 		  <a href="Annuelle" class="btn btn-lg btn-primary">Cotisation Annuelle</a>
-		  <a href="Congre" class="btn btn-lg btn-primary">Contisation par Congré</a>
+		  <a href="Congre" class="btn btn-lg btn-primary">Contisation par Congr&eacute;</a>
 		</div>
 	  </div>
 	</div>

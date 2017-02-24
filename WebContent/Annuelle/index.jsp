@@ -23,7 +23,7 @@
 	  <div class="row">
 		<div class="alert alert-success">
   		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		  <strong>Succ&egrave;s!</strong> Membre ins&eacute;r&eacute;.
+		  <strong>Succ&egrave;s!</strong> Cotisation ins&eacute;r&eacute;.
 		</div>
 	  </div>
 	<%	}
@@ -55,8 +55,8 @@
 		 <% for(Cotisation c : TraitementCotisation.getListCotisation()){ %>
 		   <tr>
 		     <td><% out.print(c.getAnneeCotisation()); %></td>
-		     <td><% out.print(c.getMontantObjectif()); %></td>
-		     <td><% out.print(c.getMontantPaye()); %></td>
+		     <td><% out.print(c.getMontantObjectifString()); %></td>
+		     <td><% out.print(c.getMontantPayeString()); %></td>
 		     <td><% out.print(c.getContribuable()); %></td>
 		     <td><a class="btn btn-danger" href="details.jsp?cotisation=<% out.print(c.getAnneeCotisation()); %>">Voir <span class="glyphicon glyphicon-chevron-right"></span></a></td>
 		   </tr>

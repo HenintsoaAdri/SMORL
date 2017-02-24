@@ -61,13 +61,25 @@ public class Creation {
 		return model;
 	}
 	
+	public static PaiementCotisation creerDetailCotisation(ResultSet res, Cotisation c) throws Exception{
+		PaiementCotisation model = new PaiementCotisation();
+				model.setMontant(res.getDouble("MONTANTPAYE"));
+				model.setMembre(creerMembre(res));
+				model.setCotisation(c);
+		return model;
+	}
+	
 	public static PaiementCotisation creerPaiementCotisation(ResultSet res) throws Exception{
+		return creerPaiementCotisation(res, creerCotisation(res));
+	}
+	
+	public static PaiementCotisation creerPaiementCotisation(ResultSet res, Cotisation c) throws Exception{
 		PaiementCotisation model = new PaiementCotisation(
 				res.getInt("IDPAIEMENTCOTISATION"), 
 				res.getDate("DATEPAIEMENT").toLocalDate(), 
 				res.getDouble("MONTANTPAYE"),
 				creerMembre(res),
-				creerCotisation(res));
+				c);
 		return model;
 	}
 	

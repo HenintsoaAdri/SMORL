@@ -1,4 +1,5 @@
 package utilitaire;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -74,5 +75,9 @@ public class StringUtil {
     public static String formatDateTime(LocalDateTime local){
     	return DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).format(local.toLocalDate())+" à "+
     			DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).format(local.toLocalTime());
+    }
+    
+    public static String moneyToString(double money){
+    	return NumberFormat.getInstance().format(money) + " Ariary";
     }
 }

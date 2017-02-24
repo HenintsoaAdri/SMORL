@@ -32,31 +32,31 @@
 		    </div>
 		  </div>
 	  	  <div class="form-group">
-		    <label class="control-label col-sm-2" for="email">Date de naissance :</label>
+		    <label class="control-label col-sm-2">Date de naissance :</label>
 		    <div class="col-sm-4">
 		      <p class="form-control-static"><% out.print(m.getDateNaissanceString()); %></p>
 		    </div>
-		    <label class="control-label col-sm-2" for="email">Sexe :</label>
+		    <label class="control-label col-sm-2">Sexe :</label>
 		    <div class="col-sm-4">
 		      <p class="form-control-static"><% out.print(m.getSexeString()); %></p>
 		    </div>
 		  </div>
 	  	  <div class="form-group">
-		    <label class="control-label col-sm-2" for="email">Email :</label>
+		    <label class="control-label col-sm-2">Email :</label>
 		    <div class="col-sm-4">
 		      <p class="form-control-static"><% out.print(m.getEmail()); %></p>
 		    </div>
-		    <label class="control-label col-sm-2" for="email">T&eacute;l&eacute;phone :</label>
+		    <label class="control-label col-sm-2">T&eacute;l&eacute;phone :</label>
 		    <div class="col-sm-4">
 		      <p class="form-control-static"><% out.print(m.getTelephone()); %></p>
 		    </div>
 		  </div>
 	  	  <div class="form-group">
-		    <label class="control-label col-sm-2" for="email">Profession :</label>
+		    <label class="control-label col-sm-2">Profession :</label>
 		    <div class="col-sm-4">
 		      <p class="form-control-static"><% out.print(m.getProfession()); %></p>
 		    </div>
-		    <label class="control-label col-sm-2" for="email">Capacit&eacute; :</label>
+		    <label class="control-label col-sm-2">Capacit&eacute; :</label>
 		    <div class="col-sm-4">
 		      <p class="form-control-static"><% out.print(m.getCapacite()); %></p>
 		    </div>
@@ -73,24 +73,76 @@
 	  	  		<button class="btn btn-primary" data-toggle="modal" data-target="#annuelle"><span class="glyphicon glyphicon-plus-sign"></span> Payer une cotisation</button>
 	  	  	</div>
 	  	  </div>
+	  	  
+			<%
+			String datePaiement = LocalDate.now().toString();
+			String anneeCotisation = Year.now().toString();
+			String montant = "";
+			try{
+				if(request.getParameter("add")!=null){
+					datePaiement = request.getParameter("datePaiement");
+					anneeCotisation = request.getParameter("anneeCotisation");
+					montant = request.getParameter("montant");
+					TraitementCotisation.insertionPaiement(datePaiement, montant, m, anneeCotisation); %>
+					
+			  <div class="row">
+				<div class="alert alert-success">
+		  		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  <strong>Succ&egrave;s!</strong> Cotisation ins&eacute;r&eacute;.
+				</div>
+			  </div>
+			<%	}
+			} catch(Exception e){ %>
+			  <div class="row">
+				<div class="alert alert-warning">
+		  		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  <strong>Probl&egrave;me!</strong> <% out.print(e.getMessage()); %>.
+				</div>
+			  </div>
+		 <% } %>
+	  	  <% for(Cotisation c : TraitementCotisation.getListCotisation()){ %>
+	  	  <hr>
 	  	  <div class="row">
+	  	  	  <div class="col-sm-12 form-horizontal">
+		  	  	<div class="form-group">
+				    <label class="control-label col-sm-2" for="email">Ann&eacute;e :</label>
+				    <div class="col-sm-4">
+				      <p class="form-control-static"><% out.print(c.getAnneeCotisation()); %></p>
+				    </div>
+				    <label class="control-label col-sm-2" for="email">Montant r&eacute;colt&eacute; :</label>
+				    <div class="col-sm-4">
+				      <p class="form-control-static"><% out.print(c.getMontantPayeString()); %></p>
+				    </div>
+				</div>
+		  	  	<div class="form-group">
+				    <label class="control-label col-sm-2" for="email">Montant pay&eacute; par le membre :</label>
+				    <div class="col-sm-4">
+				      <p class="form-control-static"><% out.print(TraitementMembre.getSommePayeCotisation(c, m)); %></p>
+				    </div>
+				    <label class="control-label col-sm-2" for="email">Reste &agrave; atteindre :</label>
+				    <div class="col-sm-4">
+				      <p class="form-control-static"><% out.print(c.getResteString()); %></p>
+				    </div>
+				</div>
+			  </div>
 		  	  <table class="table table-striped table-hover col-sm-12">
 			    <thead>
 			      <tr>
-			        <th>Ann&eacute;e</th>
 			        <th>Montant pay&eacute;</th>
 			        <th>Date de paiement</th>
 			      </tr>
 			    </thead>
 			    <tbody>
+			    <% for(PaiementCotisation p : TraitementMembre.getDetailPaiementCotisation(c,m)){ %>
 			      <tr>
-			        <td>John</td>
-			        <td>Doe</td>
-			        <td>john@example.com</td>
+			        <td><% out.print(p.getMontantString()); %></td>
+			        <td><% out.print(p.getDatePaiementString()); %></td>
 			      </tr>
+			    <% } %>
 			    </tbody>
 			  </table>
 	  	  </div>
+	  	  <% } %>
 		</div>  
 	  </div>
 	  <div class="row well">
@@ -148,7 +200,7 @@
 		  </div>
 		  <div class="form-group"> 
 		    <div class="col-sm-offset-3 col-sm-9">
-		      <button type="submit" class="btn btn-success" name="add">Ajouter</button>
+		      <button type="submit" class="btn btn-success" name="add" value="congres1">Ajouter</button>
 		    </div>
 		  </div>
 		</form>
@@ -170,9 +222,15 @@
       <div class="modal-body">
       	<form class="form-horizontal" method="post">
 		  <div class="form-group">
-		    <label class="control-label col-sm-3" for="annee">Ann&eacute;e :</label>
+		    <label class="control-label col-sm-3" for="datePaiement">Date de paiement :</label>
 		    <div class="col-sm-9">
-		      <input type="text" class="form-control" name="annee" value="<% out.print(Year.now()); %>">
+		      <input type="date" class="form-control" name="datePaiement" value="<% out.print(datePaiement); %>">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="control-label col-sm-3" for="anneeCotisation">Ann&eacute;e :</label>
+		    <div class="col-sm-9">
+		      <input type="text" class="form-control" name="anneeCotisation" value="<% out.print(anneeCotisation); %>">
 		    </div>
 		  </div>
 		  <div class="form-group">
@@ -183,7 +241,7 @@
 		  </div>
 		  <div class="form-group"> 
 		    <div class="col-sm-offset-3 col-sm-9">
-		      <button type="submit" class="btn btn-success" name="add">Ajouter</button>
+		      <button type="submit" class="btn btn-success" name="add" value="annuelle">Ajouter</button>
 		    </div>
 		  </div>
 		</form>

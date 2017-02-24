@@ -2,17 +2,25 @@ package traitement;
 
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.Vector;
 
 import dao.CotisationDAO;
 import dao.MembreDAO;
 import dao.PaiementCotisationDAO;
 import model.Cotisation;
+import model.Membre;
 import model.PaiementCotisation;
 
 public class TraitementCotisation {
 
 	public static void insertionCotisation(String anneeCotisation, String montant) throws Exception{
+		try{
+			Year.parse(anneeCotisation);
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new Exception("Ann&eacute;e invalide");
+		}
 		Cotisation cotisation = new Cotisation(0, Integer.valueOf(anneeCotisation), Double.valueOf(montant),0,0);
 		CotisationDAO.insertCotisation(cotisation);
 	}
@@ -29,9 +37,9 @@ public class TraitementCotisation {
 		return CotisationDAO.getCotisationByYear(Integer.parseInt(annee));
 	}
 
-	public static void insertionPaiement(String datePaiement, String montant, String idMembre, String year) throws Exception{
+	public static void insertionPaiement(String datePaiement, String montant, Membre membre, String year) throws Exception{
 		PaiementCotisation cotisation = new PaiementCotisation(0, LocalDate.parse(datePaiement), Double.valueOf(montant),
-					MembreDAO.getMembreById(Integer.parseInt(idMembre)), CotisationDAO.getCotisationByYear(Integer.parseInt(year)));
+					membre, CotisationDAO.getCotisationByYear(Integer.parseInt(year)));
 		PaiementCotisationDAO.insertPaiementCotisation(cotisation);
 	}
 }

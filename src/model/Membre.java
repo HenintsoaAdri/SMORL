@@ -185,4 +185,7 @@ public class Membre {
 	public String getContact(){
 		return getTelephone() + "<br>" + getEmail();
 	}
+	public String toString() {
+		return getFullName() + ", " + getSexeString() + " - " + getInformation();
+	}
 }

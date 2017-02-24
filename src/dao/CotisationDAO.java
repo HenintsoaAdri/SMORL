@@ -12,7 +12,7 @@ public class CotisationDAO {
 
 	public static Vector<Cotisation> getCotisation() throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
-		String query = "SELECT * FROM LISTCOTISATION";
+		String query = "SELECT * FROM LISTCOTISATION ORDER BY ANNEECOTISATION DESC";
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			return DBToCotisation(statement.executeQuery());
@@ -28,14 +28,22 @@ public class CotisationDAO {
 	public static Cotisation getCotisationByYear(int year) throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
 		String query = "SELECT * FROM LISTCOTISATION WHERE ANNEECOTISATION = ?";
+		ResultSet res = null;
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			statement.setInt(1, year);
-			return DBToCotisation(statement.executeQuery()).get(0);
+			res = statement.executeQuery();
+			if(res.next()){
+				Cotisation c = Creation.creerCotisation(res);
+				c.setDetailPaiement(PaiementCotisationDAO.getPaiementMembreByCotisation(c));
+				return c;
+			}
+			throw new Exception("Cotisation inexistante");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}finally {
+			if(res != null) res.close();
 			statement.close();
 			conn.close();
 		}
@@ -77,6 +85,7 @@ public class CotisationDAO {
 		catch(SQLException sqle){
 			if(sqle.getSQLState().compareTo("23505") == 0){
 				try{
+					con.rollback();
 					req = "UPDATE COTISATION SET MONTANTOBJECTIF = ? WHERE ANNEECOTISATION = ?";
 					statement = con.prepareStatement(req);
 					statement.setDouble(1, p.getMontantObjectif());
