@@ -9,10 +9,6 @@ import java.util.Vector;
 import model.PaiementCotisation;
 
 public class PaiementCotisationDAO {
-
-	public PaiementCotisationDAO() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	public static Vector<PaiementCotisation> getPaiementCotisation() throws Exception {
 		Connection conn = UtilDB.getConnPostgre();

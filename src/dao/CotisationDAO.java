@@ -9,9 +9,6 @@ import model.Cotisation;
 
 public class CotisationDAO {
 
-	public CotisationDAO() {
-		// TODO Auto-generated constructor stub
-	}
 	public static Vector<Cotisation> getCotisation() throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
 		String query = "SELECT * FROM COTISATION";
