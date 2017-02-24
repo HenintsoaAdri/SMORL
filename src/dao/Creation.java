@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import model.Congres;
 import model.Cotisation;
+import model.DetailCongres;
 import model.Membre;
 import model.PaiementCongres;
 import model.PaiementCotisation;
@@ -17,7 +18,7 @@ public class Creation {
 				res.getInt("IDMEMBRE"), 
 				res.getString("NOM"), 
 				res.getString("PRENOM"), 
-				res.getDate("DATENAISSANCE"),
+				res.getDate("DATENAISSANCE").toLocalDate(),
 				res.getString("SEXE"),
 				res.getString("EMAIL"),
 				res.getString("TELEPHONE"), 
@@ -30,25 +31,29 @@ public class Creation {
 	public static Cotisation creerCotisation(ResultSet res) throws SQLException{
 		Cotisation model = new Cotisation(
 				res.getInt("IDCOTISATION"), 
-				res.getDate("DATE"), 
+				res.getInt("ANNEECOTISATION"), 
 				res.getDouble("MONTANT"));
 		return model;
 	}
 	
 	public static Congres creerCongres(ResultSet res) throws SQLException{
-		Congres model = new Congres(res.getInt("ID"), 
-				res.getString("NOMCONGRES"), 
-				res.getDouble("LOGEMENT"), 
-				res.getDouble("FRAISTRANSPORT"), 
-				res.getDouble("RESTAURATION"));
+		Congres model = new Congres(res.getInt("IDCONGRES"), 
+				res.getString("NOMCONGRES"));
+		return model;
+	}
+	
+	public static DetailCongres creerDetailCongres(ResultSet res) throws SQLException{
+		DetailCongres model = new DetailCongres(res.getInt("IDDETAILCONGRES"), 
+				res.getString("DESIGNATION"), 
+				res.getDouble("MONTANT"));
 		return model;
 	}
 	
 	public static PaiementCongres creerPaiementCongres(ResultSet res) throws Exception{
 		PaiementCongres model = new PaiementCongres(
 				res.getInt("IDPAIEMENTCONGRES"), 
-				res.getDate("DATEPAIEMENT"), 
-				res.getDouble("MONTANT"),
+				res.getDate("DATEPAIEMENT").toLocalDate(), 
+				res.getDouble("MONTANTPAYE"),
 				creerMembre(res),
 				creerCongres(res));
 		return model;
@@ -57,8 +62,8 @@ public class Creation {
 	public static PaiementCotisation creerPaiementCotisation(ResultSet res) throws Exception{
 		PaiementCotisation model = new PaiementCotisation(
 				res.getInt("IDPAIEMENTCOTISATION"), 
-				res.getDate("DATEPAIEMENT"), 
-				res.getDouble("MONTANT"),
+				res.getDate("DATEPAIEMENT").toLocalDate(), 
+				res.getDouble("MONTANTPAYE"),
 				creerMembre(res),
 				creerCotisation(res));
 		return model;

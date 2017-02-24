@@ -1,24 +1,18 @@
 package model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class Cotisation {
 	int id;
 	LocalDate dateCotisation;
+	int anneeCotisation;
 	double montant;
 
 	public Cotisation() {}
 
-	public Cotisation(int id, Date dateCotisation, double montant) {
+	public Cotisation(int id, int anneeCotisation, double montant) {
 		this.setId(id);
-		this.setDateCotisation(dateCotisation);
-		this.setMontant(montant);
-	}
-
-	public Cotisation(int id, LocalDate dateCotisation, double montant) {
-		this.setId(id);
-		this.setDateCotisation(dateCotisation);
+		this.setAnneeCotisation(anneeCotisation);
 		this.setMontant(montant);
 	}
 
@@ -30,16 +24,12 @@ public class Cotisation {
 		this.id = id;
 	}
 
-	public LocalDate getDateCotisation() {
-		return dateCotisation;
+	public int getAnneeCotisation() {
+		return anneeCotisation;
 	}
 
-	public void setDateCotisation(LocalDate dateCotisation) {
-		this.dateCotisation = dateCotisation;
-	}
-
-	public void setDateCotisation(Date dateCotisation) {
-		setDateCotisation(dateCotisation.toLocalDate());
+	public void setAnneeCotisation(int anneeCotisation) {
+		this.anneeCotisation = anneeCotisation;
 	}
 
 	public double getMontant() {

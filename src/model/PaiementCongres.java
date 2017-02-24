@@ -1,23 +1,23 @@
 package model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class PaiementCongres {
 	int id;
-	Date datePaiement;
+	LocalDate datePaiement;
 	double montant;
 	Membre membre;
 	Congres congres;
 	
 	public PaiementCongres() {}
 
-	public PaiementCongres(int id, Date datePaiement, double montant) {
+	public PaiementCongres(int id, LocalDate datePaiement, double montant) {
 		this.setId(id);
 		this.setDatePaiement(datePaiement);
 		this.setMontant(montant);
 	}
 	
-	public PaiementCongres(int id, Date datePaiement, double montant, Membre membre, Congres congres) {
+	public PaiementCongres(int id, LocalDate datePaiement, double montant, Membre membre, Congres congres) {
 		this.setId(id);
 		this.setDatePaiement(datePaiement);
 		this.setMontant(montant);
@@ -33,11 +33,11 @@ public class PaiementCongres {
 		this.id = id;
 	}
 
-	public Date getDatePaiement() {
+	public LocalDate getDatePaiement() {
 		return datePaiement;
 	}
 
-	public void setDatePaiement(Date datePaiement) {
+	public void setDatePaiement(LocalDate datePaiement) {
 		this.datePaiement = datePaiement;
 	}
 

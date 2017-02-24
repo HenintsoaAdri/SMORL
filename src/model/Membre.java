@@ -24,7 +24,7 @@ public class Membre {
 
 	public Membre() {}
 
-	public Membre(int id, String nom, String prenom, Date dateNaissance, String sexe, String email, String telephone, String adresse,
+	public Membre(int id, String nom, String prenom, LocalDate dateNaissance, String sexe, String email, String telephone, String adresse,
 			String profession, String capacite) throws Exception {
 		super();
 		this.setId(id);

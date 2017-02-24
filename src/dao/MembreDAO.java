@@ -24,6 +24,24 @@ public class MembreDAO {
 			conn.close();
 		}
 	}
+	
+	public static Membre getMembreById(int id) throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT * FROM MEMBRE WHERE IDMEMBRE = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		try {
+			statement.setInt(1, id);
+			ResultSet res = statement.executeQuery();
+			res.next();
+			return Creation.creerMembre(res);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			statement.close();
+			conn.close();
+		}
+	}
 
 	public static Membre get(int id) throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
