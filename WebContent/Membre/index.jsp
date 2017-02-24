@@ -1,4 +1,4 @@
-<%@page import="traitement.*,model.*"%>
+<%@ page import="traitement.*,model.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,6 +10,7 @@
 </head>
 <body>
 	<div class="container">
+	<hr>
 	<%
 	String nom = "";
 	String prenom = "";
@@ -75,7 +76,7 @@
 		     <td><% out.print(m.getSexeString()); %></td>
 		     <td><% out.print(m.getContact()); %></td>
 		     <td><% out.print(m.getInformation()); %></td>
-		     <td><a class="btn btn-danger" href="details.jsp?membre=">Voir <span class="glyphicon glyphicon-chevron-right"></span></a></td>
+		     <td><a class="btn btn-danger" href="details.jsp?membre=<% out.print(m.getId()); %>">Voir <span class="glyphicon glyphicon-chevron-right"></span></a></td>
 		   </tr>
 		 <% } %>
 		 </tbody>

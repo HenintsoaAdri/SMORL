@@ -14,4 +14,10 @@ public class TraitementMembre {
 	public static Vector<Membre> getListMembre()throws Exception{
 		return MembreDAO.getMembre();
 	}
+	public static Membre get(String id) throws Exception{
+		return get(Integer.parseInt(id));
+	}
+	public static Membre get(int id) throws Exception {
+		return MembreDAO.get(id);
+	}
 }

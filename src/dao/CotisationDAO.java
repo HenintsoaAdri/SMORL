@@ -1,12 +1,12 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
 import model.Cotisation;
-import model.Membre;
 
 public class CotisationDAO {
 
@@ -57,7 +57,7 @@ public class CotisationDAO {
 		PreparedStatement statement = con.prepareStatement(req);
 		try{
 			statement.setDouble(1, p.getMontant());
-			statement.setDate(2, p.getDateCotisation());
+			statement.setDate(2, Date.valueOf(p.getDateCotisation()));
 			statement.execute();
 			con.commit();
 		}

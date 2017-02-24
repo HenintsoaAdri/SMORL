@@ -7,9 +7,7 @@ public class Congres {
 	double fraisTransport;
 	double restauration;
 
-	public Congres() {
-		// TODO Auto-generated constructor stub
-	}
+	public Congres() {}
 
 	public Congres(int id, String nom, double logement, double fraisTransport, double restauration) {
 		super();

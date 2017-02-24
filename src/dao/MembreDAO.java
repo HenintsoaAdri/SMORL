@@ -25,6 +25,26 @@ public class MembreDAO {
 		}
 	}
 
+	public static Membre get(int id) throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT * FROM MEMBRE WHERE IDMEMBRE = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		ResultSet res = null;
+		try {
+			statement.setInt(1, id);
+			res = statement.executeQuery();
+			if(res.next()) return Creation.creerMembre(res);
+			throw new Exception("Ce membre est introuvable");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			if(res != null)res.close();
+			statement.close();
+			conn.close();
+		}
+	}
+
 	public static void modify(Membre p) throws Exception {
 		Connection con = UtilDB.getConnPostgre();
     	String req = "UPDATE MEMBRE SET NOM = ?,"
