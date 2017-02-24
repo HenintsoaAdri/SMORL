@@ -1,4 +1,4 @@
-<%@ page import="traitement.*,model.*" %>
+<%@ page import="traitement.*,model.*,java.time.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,7 +12,7 @@
 	<div class="container">
 	<hr>
 	<%
-	String anneeCotisation = "";
+	String anneeCotisation = Year.now().toString();
 	String montant = "";
 	try{
 		if(request.getParameter("add")!=null){
@@ -40,7 +40,7 @@
 	  </div>
 	  <div class="row">
 	  	<h2>Cotisations annuelles</h2>
-	  	<button class="btn btn-success" data-toggle="modal" data-target="#nouveau"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter un nouveau membre</button>
+	  	<button class="btn btn-success" data-toggle="modal" data-target="#nouveau"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter une nouvelle cotisation</button>
 		<table class="table table-hover table-striped">
 		 <thead>
 		   <tr>
@@ -76,15 +76,15 @@
       <div class="modal-body">
       	<form class="form-horizontal" method="post">
 		  <div class="form-group">
-		    <label class="control-label col-sm-3" for="nom">Ann&eacute;e :</label>
+		    <label class="control-label col-sm-3" for="anneeCotisation">Ann&eacute;e :</label>
 		    <div class="col-sm-9">
-		      <input type="numeric" class="form-control" name="nom" value="<% out.print(anneeCotisation); %>">
+		      <input type="numeric" class="form-control" name="anneeCotisation" value="<% out.print(anneeCotisation); %>">
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label class="control-label col-sm-3" for="prenom">Montant Objectif :</label>
+		    <label class="control-label col-sm-3" for="montant">Montant Objectif :</label>
 		    <div class="col-sm-9"> 
-		      <input type="text" class="form-control" name="prenom" value="<% out.print(montant); %>">
+		      <input type="text" class="form-control" name="montant" value="<% out.print(montant); %>">
 		    </div>
 		  </div>
 		  <div class="form-group"> 
