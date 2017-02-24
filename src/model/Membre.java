@@ -28,7 +28,7 @@ public class Membre {
 			String profession, String capacite) throws Exception {
 		super();
 		this.setId(id);
-		this.setNom(prenom);
+		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setDateNaissance(dateNaissance);
 		this.setSexe(sexe);
@@ -42,8 +42,7 @@ public class Membre {
 	public Membre(String nom, String prenom, String dateNaissance, String sexe, String email, String telephone, String adresse,
 			String profession, String capacite) throws Exception {
 		super();
-		this.setId(id);
-		this.setNom(prenom);
+		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setDateNaissance(dateNaissance);
 		this.setSexe(sexe);

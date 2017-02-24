@@ -36,7 +36,7 @@
 	  <div class="row">
 		<div class="alert alert-success">
   		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		  <strong>Succ&egrave;!</strong> Membre ins&eacute;r&eacute;.
+		  <strong>Succ&egrave;s!</strong> Membre ins&eacute;r&eacute;.
 		</div>
 	  </div>
 	<%	}
@@ -101,13 +101,13 @@
 		  <div class="form-group">
 		    <label class="control-label col-sm-3" for="prenom">Pr&eacute;nom :</label>
 		    <div class="col-sm-9"> 
-		      <input type="text" class="form-control" name="prenom" value="<% out.print(nom); %>">
+		      <input type="text" class="form-control" name="prenom" value="<% out.print(prenom); %>">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="control-label col-sm-3" for="dateNaissance">Date de naissance:</label>
 		    <div class="col-sm-9"> 
-		      <input type="date" class="form-control" name="dateNaissance" placeholder="AAAA-MM-JJ" value="<% out.print(nom); %>">
+		      <input type="date" class="form-control" name="dateNaissance" placeholder="AAAA-MM-JJ" value="<% out.print(dateNaissance); %>">
 		    </div>
 		  </div>
 		  <div class="form-group">

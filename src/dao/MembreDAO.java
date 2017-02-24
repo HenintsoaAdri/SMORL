@@ -79,7 +79,6 @@ public class MembreDAO {
 			statement.setString(7, p.getAdresse());
 			statement.setString(8, p.getProfession());
 			statement.setString(9, p.getCapacite());
-			statement.setInt(10, p.getId());
 			statement.execute();
 			con.commit();
 		}
