@@ -70,41 +70,14 @@
 	  	  		<h3>Cotisation annuelle</h3>
 	  	  	</div>
 	  	  	<div class="col-sm-6 text-right">
-	  	  		<button class="btn btn-danger" data-toggle="modal" data-target="#annuelle"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter une cotisation</button>
+	  	  		<button class="btn btn-primary" data-toggle="modal" data-target="#annuelle"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter une cotisation</button>
 	  	  	</div>
 	  	  </div>
-	  	  <table class="table table-striped table-hover">
-		    <thead>
-		      <tr>
-		        <th>Ann&eacute;e</th>
-		        <th>Montant pay&eacute;</th>
-		        <th>Date de paiement</th>
-		      </tr>
-		    </thead>
-		    <tbody>
-		      <tr>
-		        <td>John</td>
-		        <td>Doe</td>
-		        <td>john@example.com</td>
-		      </tr>
-		    </tbody>
-		  </table>
-		</div>  
-	  </div>
-	  <div class="row well">
-	  	<div class="col-s12">
-	  	  	<h3>Cotisation de congr&eacute;s</h3>
 	  	  <div class="row">
-	  	  	<div class="col-sm-6 text-right">
-	  	  		<h4>Congr&eacute de Mahajanga 2012</h4>
-	  	  	</div>
-	  	  	<div class="col-sm-6 text-right">
-	  	  		<button class="btn btn-danger" data-toggle="modal" data-target="#congres1"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter une cotisation</button>
-	  	  	</div>
-		  	  <table class="table table-striped table-hover">
+		  	  <table class="table table-striped table-hover col-sm-12">
 			    <thead>
 			      <tr>
-			        <th>D&eacute;signation</th>
+			        <th>Ann&eacute;e</th>
 			        <th>Montant pay&eacute;</th>
 			        <th>Date de paiement</th>
 			      </tr>
@@ -117,6 +90,37 @@
 			      </tr>
 			    </tbody>
 			  </table>
+	  	  </div>
+		</div>  
+	  </div>
+	  <div class="row well">
+	  	<div class="col-s12">
+	  	  	<h3>Cotisation de congr&eacute;s</h3>
+	  	  <div class="row">
+	  	  	<div class="col-sm-12">
+		  	  	<div class="col-sm-6 text-right">
+		  	  		<h4>Congr&eacute de Mahajanga 2012</h4>
+		  	  	</div>
+		  	  	<div class="col-sm-6 text-right">
+		  	  		<button class="btn btn-primary" data-toggle="modal" data-target="#congres1"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter une cotisation</button>
+		  	  	</div>
+		  	    <table class="table table-striped table-hover">
+			   	  <thead>
+			   	  	<tr>
+			      	  <th>D&eacute;signation</th>
+			      	  <th>Montant pay&eacute;</th>
+			       	  <th>Date de paiement</th>
+			        </tr>
+			   	  </thead>
+			      <tbody>
+			      	<tr>
+			          <td>John</td>
+			          <td>Doe</td>
+			          <td>john@example.com</td>
+			        </tr>
+			      </tbody>
+			    </table>
+		  	 </div>
 			  
 <div id="congres1" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -129,15 +133,17 @@
       <div class="modal-body">
       	<form class="form-horizontal" method="post">
 		  <div class="form-group">
-		    <label class="control-label col-sm-3" for="annee">Ann&eacute;e :</label>
+		    <label class="control-label col-sm-3" for="cotisation">Cotisation :</label>
 		    <div class="col-sm-9">
-		      <input type="text" class="form-control" name="annee" value="<% out.print(Year.now()); %>">
+			  <select class="form-control" id="cotisation">
+			    <option>1</option>
+			  </select>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="control-label col-sm-3" for="montant">Montant :</label>
 		    <div class="col-sm-9"> 
-		      <input type="number" class="form-control" name="montant" min="0">
+		      <input type="number" class="form-control" name="montant" min="1">
 		    </div>
 		  </div>
 		  <div class="form-group"> 
@@ -148,7 +154,6 @@
 		</form>
       </div>
     </div>
-
   </div>
 </div>
 	  	  </div>
