@@ -70,7 +70,7 @@
 	  	  		<h3>Cotisation annuelle</h3>
 	  	  	</div>
 	  	  	<div class="col-sm-6 text-right">
-	  	  		<button class="btn btn-primary" data-toggle="modal" data-target="#annuelle"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter une cotisation</button>
+	  	  		<button class="btn btn-primary" data-toggle="modal" data-target="#annuelle"><span class="glyphicon glyphicon-plus-sign"></span> Payer une cotisation</button>
 	  	  	</div>
 	  	  </div>
 	  	  <div class="row">
@@ -102,7 +102,7 @@
 		  	  		<h4>Congr&eacute de Mahajanga 2012</h4>
 		  	  	</div>
 		  	  	<div class="col-sm-6 text-right">
-		  	  		<button class="btn btn-primary" data-toggle="modal" data-target="#congres1"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter une cotisation</button>
+		  	  		<button class="btn btn-primary" data-toggle="modal" data-target="#congres1"><span class="glyphicon glyphicon-plus-sign"></span> Payer une cotisation</button>
 		  	  	</div>
 		  	    <table class="table table-striped table-hover">
 			   	  <thead>
@@ -128,7 +128,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Ajouter une cotisation de congré</h4>
+        <h4 class="modal-title">Payer une cotisation de congré</h4>
       </div>
       <div class="modal-body">
       	<form class="form-horizontal" method="post">
@@ -165,7 +165,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Ajouter une cotisation annuelle</h4>
+        <h4 class="modal-title">Payer une cotisation annuelle</h4>
       </div>
       <div class="modal-body">
       	<form class="form-horizontal" method="post">
