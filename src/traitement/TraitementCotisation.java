@@ -2,6 +2,7 @@ package traitement;
 
 
 import java.time.LocalDate;
+import java.util.Vector;
 
 import dao.CotisationDAO;
 import dao.MembreDAO;
@@ -12,15 +13,18 @@ import model.PaiementCotisation;
 public class TraitementCotisation {
 
 	public static void insertionCotisation(String anneeCotisation, String montant) throws Exception{
-		Cotisation cotisation = new Cotisation(0, Integer.valueOf(anneeCotisation), Double.valueOf(montant));
+		Cotisation cotisation = new Cotisation(0, Integer.valueOf(anneeCotisation), Double.valueOf(montant),0,0);
 		CotisationDAO.insertCotisation(cotisation);
 	}
 	
 	public static void modificationCotisation(String idCotisation, String dateCotisation, String montant) throws Exception{
-		Cotisation cotisation = new Cotisation(Integer.valueOf(idCotisation), Integer.valueOf(dateCotisation), Double.valueOf(montant));
+		Cotisation cotisation = new Cotisation(Integer.valueOf(idCotisation), Integer.valueOf(dateCotisation), Double.valueOf(montant),0,0);
 		CotisationDAO.modify(cotisation);
 	}
 	
+	public static Vector<Cotisation> getListCotisation()throws Exception{
+		return CotisationDAO.getCotisation();
+	}
 	public static Cotisation getCotisationByYear(String annee)throws Exception{
 		return CotisationDAO.getCotisationByYear(Integer.parseInt(annee));
 	}

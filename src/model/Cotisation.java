@@ -1,19 +1,20 @@
 package model;
 
-import java.time.LocalDate;
-
 public class Cotisation {
 	int id;
-	LocalDate dateCotisation;
 	int anneeCotisation;
-	double montant;
+	double montantObjectif;
+	double montantPaye;
+	int contribuable;
 
 	public Cotisation() {}
 
-	public Cotisation(int id, int anneeCotisation, double montant) {
+	public Cotisation(int id, int anneeCotisation, double montantObjectif, double montantPaye, int contribuable) {
 		this.setId(id);
 		this.setAnneeCotisation(anneeCotisation);
-		this.setMontant(montant);
+		this.setMontantPaye(montantObjectif);
+		this.setMontantPaye(montantPaye);
+		this.setContribuable(contribuable);
 	}
 
 	public int getId() {
@@ -31,12 +32,29 @@ public class Cotisation {
 	public void setAnneeCotisation(int anneeCotisation) {
 		this.anneeCotisation = anneeCotisation;
 	}
-
-	public double getMontant() {
-		return montant;
+	
+	public double getMontantObjectif() {
+		return montantObjectif;
 	}
 
-	public void setMontant(double montant) {
-		this.montant = montant;
+	public void setMontantObjectif(double montantObjectif) {
+		this.montantObjectif = montantObjectif;
 	}
+
+	public double getMontantPaye() {
+		return montantPaye;
+	}
+
+	public void setMontantPaye(double montantPaye) {
+		this.montantPaye = montantPaye;
+	}
+
+	public int getContribuable() {
+		return contribuable;
+	}
+
+	public void setContribuable(int contribuable) {
+		this.contribuable = contribuable;
+	}
+	
 }
