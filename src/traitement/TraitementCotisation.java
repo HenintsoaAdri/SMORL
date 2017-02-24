@@ -6,8 +6,8 @@ import model.Cotisation;
 
 public class TraitementCotisation {
 
-	public static void insertionCotisation(String dateCotisation, String montant) throws Exception{
-		Cotisation cotisation = new Cotisation(0, Integer.valueOf(dateCotisation), Double.valueOf(montant));
+	public static void insertionCotisation(String anneeCotisation, String montant) throws Exception{
+		Cotisation cotisation = new Cotisation(0, Integer.valueOf(anneeCotisation), Double.valueOf(montant));
 		CotisationDAO.insertCotisation(cotisation);
 	}
 	

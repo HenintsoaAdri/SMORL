@@ -9,9 +9,7 @@ public class PaiementCotisation {
 	Membre membre;
 	Cotisation cotisation;
 
-	public PaiementCotisation() {
-		// TODO Auto-generated constructor stub
-	}
+	public PaiementCotisation() {}
 
 	public PaiementCotisation(int id, LocalDate datePaiement, double montant) {
 		this.setId(id);
