@@ -4,17 +4,17 @@ import java.sql.Date;
 
 public class Cotisation {
 	int id;
-	Date dateCotisation;
+	int anneeCotisation;
 	double montant;
 
 	public Cotisation() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Cotisation(int id, Date dateCotisation, double montant) {
+	public Cotisation(int id, int anneeCotisation, double montant) {
 		super();
 		this.setId(id);
-		this.setDateCotisation(dateCotisation);
+		this.setAnneeCotisation(anneeCotisation);
 		this.setMontant(montant);
 	}
 
@@ -26,12 +26,12 @@ public class Cotisation {
 		this.id = id;
 	}
 
-	public Date getDateCotisation() {
-		return dateCotisation;
+	public int getAnneeCotisation() {
+		return anneeCotisation;
 	}
 
-	public void setDateCotisation(Date dateCotisation) {
-		this.dateCotisation = dateCotisation;
+	public void setAnneeCotisation(int anneeCotisation) {
+		this.anneeCotisation = anneeCotisation;
 	}
 
 	public double getMontant() {

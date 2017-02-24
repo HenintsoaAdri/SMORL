@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
+import model.Membre;
 import model.PaiementCongres;
 import model.PaiementCotisation;
 
@@ -12,6 +13,25 @@ public class PaiementCotisationDAO {
 
 	public PaiementCotisationDAO() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public static double getSommePaye(int annee,int idmembre) throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT MONTANTPAYE FROM SOMMEPAYECOTISATION WHERE IDMEMBRE=? AND ANNEECOTISATION=?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		try {
+			statement.setInt(1, idmembre);
+			statement.setInt(2, annee);
+			ResultSet res = statement.executeQuery();
+			res.next();
+			return res.getDouble("MONTANTPAYE");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			statement.close();
+			conn.close();
+		}
 	}
 
 	public static void insertPaiementCotisation(PaiementCotisation p) throws Exception{

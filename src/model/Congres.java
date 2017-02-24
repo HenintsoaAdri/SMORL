@@ -1,23 +1,27 @@
 package model;
 
+import java.util.Vector;
+
 public class Congres {
 	int id;
 	String nom;
-	double logement;
-	double fraisTransport;
-	double restauration;
+	Vector<DetailCongres> detailCongres;
 
 	public Congres() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Congres(int id, String nom, double logement, double fraisTransport, double restauration) {
+	public Congres(int id, String nom) {
 		super();
 		this.setId(id);
 		this.setNom(nom);
-		this.setLogement(logement);
-		this.setFraisTransport(fraisTransport);
-		this.setRestauration(restauration);
+	}
+
+	public Congres(int id, String nom, Vector<DetailCongres> detailCongres) {
+		super();
+		this.setId(id);
+		this.setNom(nom);
+		this.setDetailCongres(detailCongres);
 	}
 
 	public int getId() {
@@ -36,28 +40,12 @@ public class Congres {
 		this.nom = nom;
 	}
 
-	public double getLogement() {
-		return logement;
+	public Vector<DetailCongres> getDetailCongres() {
+		return detailCongres;
 	}
 
-	public void setLogement(double logement) {
-		this.logement = logement;
-	}
-
-	public double getFraisTransport() {
-		return fraisTransport;
-	}
-
-	public void setFraisTransport(double fraisTransport) {
-		this.fraisTransport = fraisTransport;
-	}
-
-	public double getRestauration() {
-		return restauration;
-	}
-
-	public void setRestauration(double restauration) {
-		this.restauration = restauration;
+	public void setDetailCongres(Vector<DetailCongres> detailCongres) {
+		this.detailCongres = detailCongres;
 	}
 
 }

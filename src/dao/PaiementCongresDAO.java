@@ -14,6 +14,25 @@ public class PaiementCongresDAO {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public static double getSommePaye(int iddetailcongres,int idmembre) throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT MONTANTPAYE FROM SOMMEPAYECONGRES WHERE IDMEMBRE=? AND IDDETAILCONGRES=?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		try {
+			statement.setInt(1, idmembre);
+			statement.setInt(2, iddetailcongres);
+			ResultSet res = statement.executeQuery();
+			res.next();
+			return res.getDouble("MONTANTPAYE");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			statement.close();
+			conn.close();
+		}
+	}
+	
 	public static void insertPaiementCongres(PaiementCongres p) throws Exception{
     	Connection con = UtilDB.getConnPostgre();
     	con.setAutoCommit(false);

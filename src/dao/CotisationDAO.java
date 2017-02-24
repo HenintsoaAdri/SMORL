@@ -13,13 +13,28 @@ public class CotisationDAO {
 	public CotisationDAO() {
 		// TODO Auto-generated constructor stub
 	}
-	public static Vector<Cotisation> getCotisationByYear(int year) throws Exception {
+	public static Vector<Cotisation> getCotisation() throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT * FROM COTISATION";
+		PreparedStatement statement = conn.prepareStatement(query);
+		try {
+			return DBToCotisation(statement.executeQuery());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			statement.close();
+			conn.close();
+		}
+	}
+	
+	public static Cotisation getCotisationByYear(int year) throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
 		String query = "SELECT * FROM COTISATION WHERE YEAR =?";
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			statement.setInt(1, year);
-			return DBToCotisation(statement.executeQuery());
+			return DBToCotisation(statement.executeQuery()).get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -57,7 +72,7 @@ public class CotisationDAO {
 		PreparedStatement statement = con.prepareStatement(req);
 		try{
 			statement.setDouble(1, p.getMontant());
-			statement.setDate(2, p.getDateCotisation());
+			statement.setInt(2, p.getAnneeCotisation());
 			statement.execute();
 			con.commit();
 		}

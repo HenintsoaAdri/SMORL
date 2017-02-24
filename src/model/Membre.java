@@ -24,11 +24,25 @@ public class Membre {
 
 	public Membre() {}
 
-	public Membre(int id, String nom, String prenom, Date dateNaissance, String sexe, String email, String telephone, String adresse,
+	public Membre(int id, String nom, String prenom, LocalDate dateNaissance, String sexe, String email, String telephone, String adresse,
 			String profession, String capacite) throws Exception {
 		super();
 		this.setId(id);
-		this.setNom(prenom);
+		this.setNom(nom);
+		this.setPrenom(prenom);
+		this.setDateNaissance(dateNaissance);
+		this.setSexe(sexe);
+		this.setEmail(email);
+		this.setTelephone(telephone);
+		this.setAdresse(adresse);
+		this.setProfession(profession);
+		this.setCapacite(capacite);
+	}
+
+	public Membre(String nom, String prenom, String dateNaissance, String sexe, String email, String telephone, String adresse,
+			String profession, String capacite) throws Exception {
+		super();
+		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setDateNaissance(dateNaissance);
 		this.setSexe(sexe);
@@ -52,7 +66,7 @@ public class Membre {
 	}
 
 	public void setNom(String nom) throws Exception{
-		if(!StringUtil.fullLetter(nom)) throw new Exception("Votre nom contient des caractères spéciaux");
+		if(!StringUtil.fullLetter(nom)) throw new Exception("Nom contient des caractères spéciaux");
 		else if(nom.isEmpty()) throw new Exception("Veuillez insérer un nom");
 		this.nom = nom;
 	}
@@ -62,7 +76,7 @@ public class Membre {
 	}
 
 	public void setPrenom(String prenom) throws Exception {
-		if(!StringUtil.fullLetter(prenom)) throw new Exception("Votre prénom contient des caractères spéciaux");
+		if(!StringUtil.fullLetter(prenom)) throw new Exception("Prénom contient des caractères spéciaux");
 		this.prenom = prenom;
 	}
 	public String getFullName() {
@@ -130,14 +144,15 @@ public class Membre {
 	}
 
 	public void setEmail(String email) throws Exception {
-		if(!StringUtil.isEmail(email))throw new Exception("Votre email est invalide");
+		if(!StringUtil.isEmail(email))throw new Exception("Adresse email invalide");
 		this.email = email;
 	}
 	public String getTelephone() {
 		return telephone;
 	}
 
-	public void setTelephone(String telephone) {
+	public void setTelephone(String telephone) throws Exception {
+		if(!StringUtil.isTelephone(telephone))throw new Exception("Numero de telephone invalide");
 		this.telephone = telephone;
 	}
 
@@ -164,5 +179,10 @@ public class Membre {
 	public void setCapacite(String capacite) {
 		this.capacite = capacite;
 	}
-
+	public String getInformation(){
+		return getProfession() + " - " + getCapacite();
+	}
+	public String getContact(){
+		return getTelephone() + "\n" + getEmail();
+	}
 }

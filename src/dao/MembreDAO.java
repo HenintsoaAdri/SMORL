@@ -45,7 +45,7 @@ public class MembreDAO {
 		try{
 			statement.setString(1, p.getNom());
 			statement.setString(2, p.getPrenom());
-			statement.setDate(3, p.getDateNaissance());
+			statement.setDate(3, Date.valueOf(p.getDateNaissance()));
 			statement.setString(4, p.getSexe());
 			statement.setString(5, p.getEmail());
 			statement.setString(6, p.getTelephone());
@@ -76,7 +76,7 @@ public class MembreDAO {
 		try{
 			statement.setString(1, p.getNom());
 			statement.setString(2, p.getPrenom());
-			statement.setDate(3, p.getDateNaissance());
+			statement.setDate(3, Date.valueOf(p.getDateNaissance()));
 			statement.setString(4, p.getSexe());
 			statement.setString(5, p.getEmail());
 			statement.setString(6, p.getTelephone());
