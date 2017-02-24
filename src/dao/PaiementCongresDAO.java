@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
@@ -41,7 +42,7 @@ public class PaiementCongresDAO {
 	
 		PreparedStatement statement = con.prepareStatement(req);
 		try{
-			statement.setDate(1, p.getDatePaiement());
+			statement.setDate(1, Date.valueOf(p.getDatePaiement()));
 			statement.setDouble(2, p.getMontant());
 			statement.execute();
 			con.commit();

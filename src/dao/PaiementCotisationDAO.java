@@ -1,10 +1,12 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
+import model.Cotisation;
 import model.Membre;
 import model.PaiementCongres;
 import model.PaiementCotisation;
@@ -13,6 +15,37 @@ public class PaiementCotisationDAO {
 
 	public PaiementCotisationDAO() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public static Vector<PaiementCotisation> getPaiementCotisation() throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT * FROM DETAILPAIEMENTCOTISATION";
+		PreparedStatement statement = conn.prepareStatement(query);
+		try {
+			return DBToPaiementCotisation(statement.executeQuery());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			statement.close();
+			conn.close();
+		}
+	}
+	
+	public static Vector<PaiementCotisation> getPaiementCotisationByIdMembre(int id) throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT * FROM DETAILPAIEMENTCOTISATION WHERE IDMEMBRE =?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		try {
+			statement.setInt(1, id);
+			return DBToPaiementCotisation(statement.executeQuery());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			statement.close();
+			conn.close();
+		}
 	}
 	
 	public static double getSommePaye(int annee,int idmembre) throws Exception {
@@ -37,13 +70,15 @@ public class PaiementCotisationDAO {
 	public static void insertPaiementCotisation(PaiementCotisation p) throws Exception{
     	Connection con = UtilDB.getConnPostgre();
     	con.setAutoCommit(false);
-    	String req = "INSERT INTO PAIEMENTCOTISATION (DATEPAIEMENT,MONTANT) "
-    			+ "VALUES (?,?)";
+    	String req = "INSERT INTO PAIEMENTCOTISATION (IDMEMBRE,IDCOTISATION,DATEPAIEMENT,MONTANT) "
+    			+ "VALUES (?,?,?,?)";
 	
 		PreparedStatement statement = con.prepareStatement(req);
 		try{
-			statement.setDate(1, p.getDatePaiement());
-			statement.setDouble(2, p.getMontant());
+			statement.setInt(1, p.getMembre().getId());
+			statement.setInt(2, p.getCotisation().getId());
+			statement.setDate(3, Date.valueOf(p.getDatePaiement()));
+			statement.setDouble(4, p.getMontant());
 			statement.execute();
 			con.commit();
 		}

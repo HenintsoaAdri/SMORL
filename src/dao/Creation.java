@@ -56,8 +56,8 @@ public class Creation {
 	public static PaiementCongres creerPaiementCongres(ResultSet res) throws Exception{
 		PaiementCongres model = new PaiementCongres(
 				res.getInt("IDPAIEMENTCONGRES"), 
-				res.getDate("DATEPAIEMENT"), 
-				res.getDouble("MONTANT"),
+				res.getDate("DATEPAIEMENT").toLocalDate(), 
+				res.getDouble("MONTANTPAYE"),
 				creerMembre(res),
 				creerCongres(res));
 		return model;
@@ -66,8 +66,8 @@ public class Creation {
 	public static PaiementCotisation creerPaiementCotisation(ResultSet res) throws Exception{
 		PaiementCotisation model = new PaiementCotisation(
 				res.getInt("IDPAIEMENTCOTISATION"), 
-				res.getDate("DATEPAIEMENT"), 
-				res.getDouble("MONTANT"),
+				res.getDate("DATEPAIEMENT").toLocalDate(), 
+				res.getDouble("MONTANTPAYE"),
 				creerMembre(res),
 				creerCotisation(res));
 		return model;

@@ -1,10 +1,11 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class PaiementCotisation {
 	int id;
-	Date datePaiement;
+	LocalDate datePaiement;
 	double montant;	
 	Membre membre;
 	Cotisation cotisation;
@@ -13,13 +14,13 @@ public class PaiementCotisation {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PaiementCotisation(int id, Date datePaiement, double montant) {
+	public PaiementCotisation(int id, LocalDate datePaiement, double montant) {
 		this.setId(id);
 		this.setDatePaiement(datePaiement);
 		this.setMontant(montant);
 	}
 
-	public PaiementCotisation(int id, Date datePaiement, double montant, Membre membre, Cotisation cotisation) {
+	public PaiementCotisation(int id, LocalDate datePaiement, double montant, Membre membre, Cotisation cotisation) {
 		this.setId(id);
 		this.setDatePaiement(datePaiement);
 		this.setMontant(montant);
@@ -35,11 +36,11 @@ public class PaiementCotisation {
 		this.id = id;
 	}
 
-	public Date getDatePaiement() {
+	public LocalDate getDatePaiement() {
 		return datePaiement;
 	}
 
-	public void setDatePaiement(Date datePaiement) {
+	public void setDatePaiement(LocalDate datePaiement) {
 		this.datePaiement = datePaiement;
 	}
 
