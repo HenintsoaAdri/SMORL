@@ -153,32 +153,7 @@
 	  <div class="row well">
 	  	<div class="col-s12">
 	  	  	<h2>Cotisation de congr&eacute;s</h2>
-	 <% for(Congres congres : TraitementCongres.getListCongres()){
-			String montantCongres = "";
-			try{
-				String idCongres = "";
-				if(request.getParameter("addCongres") != null) idCongres = request.getParameter("addCongres");
-				if(idCongres.compareTo(String.valueOf(congres.getId()))==0){
-					datePaiement = request.getParameter("datePaiement");
-					montantCongres = request.getParameter("montantCongres");
-					String detailCongres = request.getParameter("detailCongres");
-					TraitementCongres.insertionPaiement(datePaiement, montantCongres, m, detailCongres); %>
-					
-			  <div class="row">
-				<div class="alert alert-success">
-		  		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				  <strong>Succ&egrave;s!</strong> Cotisation ins&eacute;r&eacute;.
-				</div>
-			  </div>
-			<%	}
-			} catch(Exception e){ e.printStackTrace();%>
-			  <div class="row">
-				<div class="alert alert-warning">
-		  		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				  <strong>Probl&egrave;me!</strong> <% out.print(e.getMessage()); %>.
-				</div>
-			  </div>
-		 <% } %>
+	 <% for(Congres congres : TraitementCongres.getListCongres()){ %>
 	  	  <div class="row">
 	  	  	<div class="col-sm-12">
 	  	  	  <div class="row">
@@ -190,7 +165,30 @@
 		  	  	</div>
 		  	  </div>
 		  	   <%
-		  	   for (DetailCongres dc : congres.getDetailCongres()){%>
+		  	   for (DetailCongres dc : congres.getDetailCongres()){
+		  		 String montantCongres = "";
+					try{
+						if(request.getParameter("addCongres") != null 
+								&& request.getParameter("detailCongres").compareTo(String.valueOf(dc.getId()))== 0){
+							datePaiement = request.getParameter("datePaiement");
+							montantCongres = request.getParameter("montantCongres");
+							TraitementCongres.insertionPaiement(datePaiement, montantCongres, m, dc); %>
+							
+					  <div class="row">
+						<div class="alert alert-success">
+				  		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  <strong>Succ&egrave;s!</strong> Cotisation ins&eacute;r&eacute;.
+						</div>
+					  </div>
+					<%	}else if(request.getParameter("deleteCongres") != null) TraitementCongres.deletePaiement(request.getParameter("deleteCongres"));
+					} catch(Exception e){ e.printStackTrace();%>
+					  <div class="row">
+						<div class="alert alert-warning">
+				  		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						  <strong>Probl&egrave;me!</strong> <% out.print(e.getMessage()); %>.
+						</div>
+					  </div>
+				 <% } %>
 	  	  	  <div class="row">
 		  	   <h4><span class="glyphicon glyphicon-pushpin"></span> <% out.print(dc.getDesignation()); %></h4>
 		  	    <table class="table table-striped table-hover">
@@ -207,7 +205,7 @@
 			      <tr>
 			        <td><% out.print(p.getMontantString()); %></td>
 			        <td><% out.print(p.getDatePaiementString()); %></td>
-			        <td><button class="btn btn-warning" type="submit" name="deleteAnnuelle" value="<% out.print(p.getId());%>"><span class="glyphicon glyphicon-trash"></span> Supprimer ce paiement</button></td>
+			        <td><button class="btn btn-warning" type="submit" name="deleteCongres" value="<% out.print(p.getId());%>"><span class="glyphicon glyphicon-trash"></span> Supprimer ce paiement</button></td>
 			      </tr>
 			    </form>
 			    <% } %>
@@ -241,7 +239,7 @@
 		    <div class="col-sm-9">
 			  <select class="form-control" name="detailCongres">
 			  	<% for(DetailCongres dc : congres.getDetailCongres()){ %>
-			    <option value="<% out.print(dc.getId()); %>"><% out.print(dc.getDesignation()); %></option>
+			    <option value="<% out.print(dc.getId()); %>"><% out.print(dc.getDesignation()); %> (Reste : <% out.print(dc.getResteString(m)); %>)</option>
 			    <% } %>
 			  </select>
 		    </div>

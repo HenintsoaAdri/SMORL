@@ -40,7 +40,7 @@ public class TraitementCotisation {
 	public static void insertionPaiement(String datePaiement, String montant, Membre membre, String year) throws Exception{
 		try{
 			PaiementCotisation cotisation = new PaiementCotisation(0, LocalDate.parse(datePaiement), Double.valueOf(montant),
-					membre, CotisationDAO.getCotisationByYear(Integer.parseInt(year)));
+					membre, CotisationDAO.getCotisationByYear(Integer.parseInt(year)),false);
 			PaiementCotisationDAO.insertPaiementCotisation(cotisation);
 		}catch (DateTimeParseException e){
 			throw new Exception("Date invalide");

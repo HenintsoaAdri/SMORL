@@ -1,13 +1,11 @@
 package traitement;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Vector;
 
 import dao.CongresDAO;
 import dao.PaiementCongresDAO;
-import dao.PaiementCotisationDAO;
 import model.*;
 
 public class TraitementCongres {
@@ -44,10 +42,10 @@ public class TraitementCongres {
 		CongresDAO.modifyDetailCongres(detailCongres);
 	}
 
-	public static void insertionPaiement(String datePaiement, String montant, Membre membre, String idDetailCongres) throws Exception{
+	public static void insertionPaiement(String datePaiement, String montant, Membre membre, DetailCongres detailCongres) throws Exception{
 		try{
 			PaiementCongres paiement = new PaiementCongres(0, LocalDate.parse(datePaiement), Double.valueOf(montant),
-					membre, new DetailCongres(Integer.parseInt(idDetailCongres),"",0));
+					membre, detailCongres,false);
 			PaiementCongresDAO.insertPaiementCongres(paiement);
 		}catch (DateTimeParseException e){
 			e.printStackTrace();
@@ -57,7 +55,7 @@ public class TraitementCongres {
 
 	public static void deletePaiement(String idPaiement) throws Exception{
 		try{
-			PaiementCotisationDAO.deletePaiementCotisation(Integer.parseInt(idPaiement));	
+			PaiementCongresDAO.deletePaiementCongres(Integer.parseInt(idPaiement));	
 		} catch(Exception e){
 			e.printStackTrace();
 			throw new Exception("Paiement invalide");

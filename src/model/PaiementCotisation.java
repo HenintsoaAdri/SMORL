@@ -15,18 +15,20 @@ public class PaiementCotisation {
 
 	public PaiementCotisation() {}
 
-	public PaiementCotisation(int id, LocalDate datePaiement, double montant) {
+	public PaiementCotisation(int id, LocalDate datePaiement, double montant) throws Exception {
 		this.setId(id);
 		this.setDatePaiement(datePaiement);
 		this.setMontant(montant);
 	}
 
-	public PaiementCotisation(int id, LocalDate datePaiement, double montant, Membre membre, Cotisation cotisation) {
+	public PaiementCotisation(int id, LocalDate datePaiement, double montant, Membre membre, Cotisation cotisation, boolean paye) throws Exception {
 		this.setId(id);
 		this.setDatePaiement(datePaiement);
-		this.setMontant(montant);
 		this.setMembre(membre);
 		this.setCotisation(cotisation);
+		this.setMontant(montant);
+		if(paye) this.setMontantPaye(montant);
+		else this.setMontant(montant);
 	}
 
 	public int getId() {
@@ -55,7 +57,12 @@ public class PaiementCotisation {
 		return StringUtil.moneyToString(getMontant());
 	}
 
-	public void setMontant(double montant) {
+	public void setMontant(double montant) throws Exception {
+		if(montant <= 0) throw new Exception("Montant invalide");
+		else if(getReste()< montant) throw new Exception("Montant sup\u00e9rieur au reste a payer");
+		this.montant = montant;
+	}
+	public void setMontantPaye(double montant) throws Exception {
 		this.montant = montant;
 	}
 
@@ -75,4 +82,10 @@ public class PaiementCotisation {
 		this.cotisation = cotisation;
 	}
 
+	public double getReste() throws Exception{
+		return getCotisation().getReste(getMembre());
+	}
+	public String getResteString() throws Exception{
+		return getCotisation().getResteString(getMembre());
+	}
 }

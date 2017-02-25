@@ -22,7 +22,7 @@
 	  	<div class="col-sm-12 form-horizontal">
 	  	<h3>Cotisation annuelle</h3>
 	  	  <div class="form-group">
-		    <label class="control-label col-sm-2">Ann&eacute :</label>
+		    <label class="control-label col-sm-2">Ann&eacute;e :</label>
 		    <div class="col-sm-4">
 		      <p class="form-control-static"><% out.print(c.getAnneeCotisation()); %></p>
 		    </div>
@@ -56,6 +56,7 @@
 			      <tr>
 			        <th>Membre</th>
 			        <th>Montant pay&eacute;</th>
+			        <th>Reste &agrave; payer</th>
 			      </tr>
 			    </thead>
 			    <tbody>
@@ -63,6 +64,7 @@
 			      <tr>
 			        <td><% out.print(p.getMembre()); %></td>
 			        <td><% out.print(p.getMontantString()); %></td>
+			        <td><% out.print(p.getResteString()); %></td>
 			      </tr>
 			    <% } %>
 			    </tbody>
@@ -96,7 +98,7 @@
 	  	  </div>
 		</div>  
 	  </div>
-<% } catch(Exception e){ %>
+<% } catch(Exception e){ e.printStackTrace(); %>
 	  <div class="row">
 		<div class="alert alert-warning">
   		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

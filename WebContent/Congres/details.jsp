@@ -53,6 +53,7 @@
 			      <tr>
 			        <th>Membre</th>
 			        <th>Montant pay&eacute;</th>
+			        <th>Reste &agrave; payer</th>
 			      </tr>
 			    </thead>
 			    <tbody>
@@ -60,6 +61,7 @@
 			      <tr>
 			        <td><% out.print(p.getMembre()); %></td>
 			        <td><% out.print(p.getMontantString()); %></td>
+			        <td><% out.print(p.getResteString()); %></td>
 			      </tr>
 			    <% } %>
 			    </tbody>

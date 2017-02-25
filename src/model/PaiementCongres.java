@@ -15,18 +15,19 @@ public class PaiementCongres {
 	
 	public PaiementCongres() {}
 
-	public PaiementCongres(int id, LocalDate datePaiement, double montant) {
+	public PaiementCongres(int id, LocalDate datePaiement, double montant) throws Exception {
 		this.setId(id);
 		this.setDatePaiement(datePaiement);
 		this.setMontant(montant);
 	}
 	
-	public PaiementCongres(int id, LocalDate datePaiement, double montant, Membre membre, DetailCongres congres) {
+	public PaiementCongres(int id, LocalDate datePaiement, double montant, Membre membre, DetailCongres congres, boolean paye) throws Exception {
 		this.setId(id);
 		this.setDatePaiement(datePaiement);
-		this.setMontant(montant);
-		this.setMembre(membre);
 		this.setCongres(congres);
+		this.setMembre(membre);
+		if(paye) this.setMontantPaye(montant);
+		else this.setMontant(montant);
 	}
 
 	public int getId() {
@@ -55,7 +56,12 @@ public class PaiementCongres {
 		return StringUtil.moneyToString(getMontant());
 	}
 	
-	public void setMontant(double montant) {
+	public void setMontant(double montant) throws Exception {
+		if(montant <= 0) throw new Exception("Montant invalide");
+		else if(getReste()< montant) throw new Exception("Montant sup\u00e9rieur au reste a payer");
+		this.montant = montant;
+	}
+	public void setMontantPaye(double montant) throws Exception {
 		this.montant = montant;
 	}
 
@@ -73,5 +79,12 @@ public class PaiementCongres {
 
 	public void setCongres(DetailCongres congres) {
 		this.congres = congres;
+	}
+	
+	public double getReste() throws Exception{
+		return getCongres().getReste(getMembre());
+	}
+	public String getResteString() throws Exception{
+		return getCongres().getResteString(getMembre());
 	}
 }

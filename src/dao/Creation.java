@@ -70,15 +70,16 @@ public class Creation {
 				res.getDate("DATEPAIEMENT").toLocalDate(), 
 				res.getDouble("MONTANTPAYE"),
 				creerMembre(res),
-				dc);
+				dc,
+				true);
 		return model;
 	}
 	
 	public static PaiementCongres creerDetailCongres(ResultSet res, DetailCongres dc) throws Exception{
 		PaiementCongres model = new PaiementCongres();
-				model.setMontant(res.getDouble("MONTANTPAYE"));
-				model.setMembre(creerMembre(res));
 				model.setCongres(dc);
+				model.setMontantPaye(res.getDouble("MONTANTPAYE"));
+				model.setMembre(creerMembre(res));
 		return model;
 	}
 	
@@ -88,9 +89,9 @@ public class Creation {
 	
 	public static PaiementCotisation creerDetailCotisation(ResultSet res, Cotisation c) throws Exception{
 		PaiementCotisation model = new PaiementCotisation();
-				model.setMontant(res.getDouble("MONTANTPAYE"));
-				model.setMembre(creerMembre(res));
 				model.setCotisation(c);
+				model.setMontantPaye(res.getDouble("MONTANTPAYE"));
+				model.setMembre(creerMembre(res));
 		return model;
 	}
 	
@@ -104,7 +105,8 @@ public class Creation {
 				res.getDate("DATEPAIEMENT").toLocalDate(), 
 				res.getDouble("MONTANTPAYE"),
 				creerMembre(res),
-				c);
+				c,
+				true);
 		return model;
 	}
 	
