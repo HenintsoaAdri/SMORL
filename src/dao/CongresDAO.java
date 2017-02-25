@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
@@ -9,14 +10,10 @@ import model.Congres;
 import model.DetailCongres;
 
 public class CongresDAO {
-
-	public CongresDAO() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	public static Vector<Congres> getCongres() throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
-		String query = "SELECT * FROM CONGRES WHERE IDCONGRES =?";
+		String query = "SELECT * FROM LISTDETAILCONGRES";
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			return DBToCongres(statement.executeQuery());
@@ -31,7 +28,7 @@ public class CongresDAO {
 	
 	public static Congres getCongresByID(int id) throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
-		String query = "SELECT * FROM CONGRESDETAILVIEW WHERE IDCONGRES =?";
+		String query = "SELECT * FROM LISTDETAILCONGRES WHERE IDCONGRES =?";
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			statement.setInt(1, id);
@@ -107,14 +104,15 @@ public class CongresDAO {
 	public static void insertCongres(Congres p) throws Exception{
     	Connection con = UtilDB.getConnPostgre();
     	con.setAutoCommit(false);
-    	String req = "INSERT INTO CONGRES (NOMCONGRES) "
-    			+ "VALUES (?)";
+    	String req = "INSERT INTO CONGRES (NOMCONGRES, DATECONGRES) "
+    			+ "VALUES (?,?)";
     	String req2 = "INSERT INTO DETAILCONGRES (IDCONGRES,DESIGNATION,MONTANT) "
     			+ "VALUES (currval('congres_idcongres_seq'),?,?)";
 	
 		PreparedStatement statement = con.prepareStatement(req);
 		try{
 			statement.setString(1, p.getNom());
+			statement.setDate(2, Date.valueOf(p.getDate()));
 			statement.execute();
 			
 			for(DetailCongres det : p.getDetailCongres()){
@@ -141,7 +139,7 @@ public class CongresDAO {
 		try{
 			Vector<Congres> model = new Vector<Congres>();
 			while(res.next()){
-				model.add(Creation.creerCongres(res));
+				model.add(DBToCongresDetail(res));
 			}
 			return model;
 		}catch(Exception e){
@@ -157,21 +155,15 @@ public class CongresDAO {
 			Vector<DetailCongres> ltdetailcongres = new Vector<DetailCongres>();
 			if(res.next()){
 				model = Creation.creerCongres(res);
-				DetailCongres detail = Creation.creerDetailCongres(res);
-				ltdetailcongres.add(detail);
-				detail.setCongres(model);
+				ltdetailcongres.add(Creation.creerDetailCongres(res, model));
 			}
 			while(res.next()){
-				DetailCongres detail = Creation.creerDetailCongres(res);
-				ltdetailcongres.add(detail);
-				detail.setCongres(model);
+				ltdetailcongres.add(Creation.creerDetailCongres(res, model));
 			}
 			model.setDetailCongres(ltdetailcongres);
 			return model;
 		}catch(Exception e){
 			throw e;
-		}finally {
-			res.close();
 		}
 	}
 

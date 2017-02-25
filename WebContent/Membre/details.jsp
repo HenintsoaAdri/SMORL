@@ -79,7 +79,7 @@
 			String anneeCotisation = Year.now().toString();
 			String montant = "";
 			try{
-				if(request.getParameter("add")!=null){
+				if(request.getParameter("addCotisation")!=null){
 					datePaiement = request.getParameter("datePaiement");
 					anneeCotisation = request.getParameter("anneeCotisation");
 					montant = request.getParameter("montant");
@@ -92,6 +92,7 @@
 				</div>
 			  </div>
 			<%	}
+				else if(request.getParameter("deleteAnnuelle") != null) TraitementCotisation.deletePaiement(request.getParameter("deleteAnnuelle"));
 			} catch(Exception e){ %>
 			  <div class="row">
 				<div class="alert alert-warning">
@@ -130,14 +131,18 @@
 			      <tr>
 			        <th>Montant pay&eacute;</th>
 			        <th>Date de paiement</th>
+			        <th></th>
 			      </tr>
 			    </thead>
 			    <tbody>
 			    <% for(PaiementCotisation p : TraitementMembre.getDetailPaiementCotisation(c,m)){ %>
+			    <form method="post">
 			      <tr>
 			        <td><% out.print(p.getMontantString()); %></td>
 			        <td><% out.print(p.getDatePaiementString()); %></td>
+			        <td><button class="btn btn-warning" type="submit" name="deleteAnnuelle" value="<% out.print(p.getId());%>"><span class="glyphicon glyphicon-trash"></span> Supprimer ce paiement</button></td>
 			      </tr>
+			    </form>
 			    <% } %>
 			    </tbody>
 			  </table>
@@ -148,59 +153,98 @@
 	  <div class="row well">
 	  	<div class="col-s12">
 	  	  	<h3>Cotisation de congr&eacute;s</h3>
+	  	  <% for(Congres congres : TraitementCongres.getListCongres()){   
+	  		
+			String montantCongres = "";
+			try{
+				if(request.getParameter("addCongres") != null){
+					datePaiement = request.getParameter("datePaiement");
+					montantCongres = request.getParameter("montantCongres");
+					String detailCongres = request.getParameter("detailCongres");
+					TraitementCongres.insertionPaiement(datePaiement, montantCongres, m, detailCongres); %>
+					
+			  <div class="row">
+				<div class="alert alert-success">
+		  		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  <strong>Succ&egrave;s!</strong> Cotisation ins&eacute;r&eacute;.
+				</div>
+			  </div>
+			<%	}	
+			} catch(Exception e){ %>
+			  <div class="row">
+				<div class="alert alert-warning">
+		  		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				  <strong>Probl&egrave;me!</strong> <% out.print(e.getMessage()); %>.
+				</div>
+			  </div>
+		 <% } %>
 	  	  <div class="row">
 	  	  	<div class="col-sm-12">
 		  	  	<div class="col-sm-6 text-right">
-		  	  		<h4>Congr&eacute de Mahajanga 2012</h4>
+		  	  		<h4>Congr&egrave;s <% out.print(congres.getNom()); %></h4>
 		  	  	</div>
 		  	  	<div class="col-sm-6 text-right">
-		  	  		<button class="btn btn-primary" data-toggle="modal" data-target="#congres1"><span class="glyphicon glyphicon-plus-sign"></span> Payer une cotisation</button>
+		  	  		<button class="btn btn-primary" data-toggle="modal" data-target="#congres<% out.print(congres.getId()); %>"><span class="glyphicon glyphicon-plus-sign"></span> Payer une cotisation</button>
 		  	  	</div>
+		  	   <%
+		  	   for (DetailCongres dc : congres.getDetailCongres()){%>
 		  	    <table class="table table-striped table-hover">
 			   	  <thead>
 			   	  	<tr>
-			      	  <th>D&eacute;signation</th>
+			   	  	  <th>D&eacute;signation</th>
 			      	  <th>Montant pay&eacute;</th>
 			       	  <th>Date de paiement</th>
+			      	  <th></th>
 			        </tr>
 			   	  </thead>
 			      <tbody>
-			      	<tr>
-			          <td>John</td>
-			          <td>Doe</td>
-			          <td>john@example.com</td>
-			        </tr>
+			    <% for(PaiementCongres p : TraitementMembre.getDetailPaiementCongres(dc,m)){ %>
+			    <form method="post">
+			      <tr>
+			      	<td><% out.print(p.getCongres().getDesignation()); %></td>
+			        <td><% out.print(p.getMontantString()); %></td>
+			        <td><% out.print(p.getDatePaiementString()); %></td>
+			        <td><button class="btn btn-warning" type="submit" name="deleteAnnuelle" value="<% out.print(p.getId());%>"><span class="glyphicon glyphicon-trash"></span> Supprimer ce paiement</button></td>
+			      </tr>
+			    </form>
+			    <% } %>
+			      <tr colspan="4">
+			      	<td>Reste &agrave; payer : <% out.print(dc.getResteString(m)); %></td>
+			      </tr>
 			      </tbody>
 			    </table>
+			    <% } %>
 		  	 </div>
 			  
-<div id="congres1" class="modal fade" role="dialog">
+<div id="congres<% out.print(congres.getId()); %>" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Payer une cotisation de congré</h4>
+        <h4 class="modal-title">Payer une cotisation de congr&egrave;s</h4>
       </div>
       <div class="modal-body">
       	<form class="form-horizontal" method="post">
 		  <div class="form-group">
-		    <label class="control-label col-sm-3" for="cotisation">Cotisation :</label>
+		    <label class="control-label col-sm-3" for="detailcongres">Cotisation :</label>
 		    <div class="col-sm-9">
-			  <select class="form-control" id="cotisation">
-			    <option>1</option>
+			  <select class="form-control" name="detailcongres">
+			  	<% for(DetailCongres dc : congres.getDetailCongres()){ %>
+			    <option value="<% out.print(dc.getId()); %>"><% out.print(dc.getDesignation()); %></option>
+			    <% } %>
 			  </select>
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label class="control-label col-sm-3" for="montant">Montant :</label>
+		    <label class="control-label col-sm-3" for="montantCongres">Montant :</label>
 		    <div class="col-sm-9"> 
-		      <input type="number" class="form-control" name="montant" min="1">
+		      <input type="number" class="form-control" name="montantCongres" min="1">
 		    </div>
 		  </div>
 		  <div class="form-group"> 
 		    <div class="col-sm-offset-3 col-sm-9">
-		      <button type="submit" class="btn btn-success" name="add" value="congres1">Ajouter</button>
+		      <button type="submit" class="btn btn-success" name="addCongres" value="congres1">Payer</button>
 		    </div>
 		  </div>
 		</form>
@@ -209,6 +253,7 @@
   </div>
 </div>
 	  	  </div>
+	  	 <% } %>
 		</div>  
 	  </div>
 <div id="annuelle" class="modal fade" role="dialog">
@@ -241,7 +286,7 @@
 		  </div>
 		  <div class="form-group"> 
 		    <div class="col-sm-offset-3 col-sm-9">
-		      <button type="submit" class="btn btn-success" name="add" value="annuelle">Ajouter</button>
+		      <button type="submit" class="btn btn-success" name="addCotisation" value="annuelle">Payer</button>
 		    </div>
 		  </div>
 		</form>
@@ -250,7 +295,7 @@
 
   </div>
 </div>
-<% } catch(Exception e){ %>
+<% } catch(Exception e){ e.printStackTrace(); %>
 	  <div class="row">
 		<div class="alert alert-warning">
   		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
