@@ -78,7 +78,7 @@
 		  <div class="form-group">
 		    <label class="control-label col-sm-3" for="anneeCotisation">Ann&eacute;e :</label>
 		    <div class="col-sm-9">
-		      <input type="numeric" class="form-control" name="anneeCotisation" value="<% out.print(anneeCotisation); %>">
+		      <input type="number" class="form-control" name="anneeCotisation" value="<% out.print(anneeCotisation); %>">
 		    </div>
 		  </div>
 		  <div class="form-group">

@@ -39,26 +39,51 @@ public class Creation {
 	}
 	
 	public static Congres creerCongres(ResultSet res) throws SQLException{
-		Congres model = new Congres(res.getInt("IDCONGRES"), 
-				res.getString("NOMCONGRES"));
+		Congres model = new Congres(res.getInt("IDCONGRES"),
+				res.getString("NOMCONGRES"),
+				res.getDate("DATECONGRES").toLocalDate());
+		return model;
+	}
+	
+	public static DetailCongres creerDetailCongres(ResultSet res, Congres congres) throws SQLException{
+		DetailCongres model = new DetailCongres(res.getInt("IDDETAILCONGRES"), 
+				res.getString("DESIGNATION"), 
+				res.getDouble("MONTANT"), 
+				res.getDouble("MONTANTPAYE"),
+				res.getInt("CONTRIBUABLE"));
+		model.setCongres(congres);
 		return model;
 	}
 	
 	public static DetailCongres creerDetailCongres(ResultSet res) throws SQLException{
 		DetailCongres model = new DetailCongres(res.getInt("IDDETAILCONGRES"), 
 				res.getString("DESIGNATION"), 
-				res.getDouble("MONTANT"));
+				res.getDouble("MONTANT"), 
+				res.getDouble("MONTANTPAYE"),
+				res.getInt("CONTRIBUABLE"));
 		return model;
 	}
 	
-	public static PaiementCongres creerPaiementCongres(ResultSet res) throws Exception{
+	public static PaiementCongres creerPaiementCongres(ResultSet res, DetailCongres dc) throws Exception{
 		PaiementCongres model = new PaiementCongres(
 				res.getInt("IDPAIEMENTCONGRES"), 
 				res.getDate("DATEPAIEMENT").toLocalDate(), 
 				res.getDouble("MONTANTPAYE"),
 				creerMembre(res),
-				creerCongres(res));
+				dc);
 		return model;
+	}
+	
+	public static PaiementCongres creerDetailCongres(ResultSet res, DetailCongres dc) throws Exception{
+		PaiementCongres model = new PaiementCongres();
+				model.setMontant(res.getDouble("MONTANTPAYE"));
+				model.setMembre(creerMembre(res));
+				model.setCongres(dc);
+		return model;
+	}
+	
+	public static PaiementCongres creerPaiementCongres(ResultSet res) throws Exception{
+		return creerPaiementCongres(res, creerDetailCongres(res));
 	}
 	
 	public static PaiementCotisation creerDetailCotisation(ResultSet res, Cotisation c) throws Exception{

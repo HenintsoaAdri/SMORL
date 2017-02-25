@@ -103,6 +103,25 @@ public class PaiementCotisationDAO {
 			con.close();
 		}
 	}
+	public static void deletePaiementCotisation(int id) throws Exception{
+    	Connection con = UtilDB.getConnPostgre();
+    	con.setAutoCommit(false);
+    	String req = "DELETE FROM PAIEMENTCOTISATION WHERE IDPAIEMENTCOTISATION = ?";
+	
+		PreparedStatement statement = con.prepareStatement(req);
+		try{
+			statement.setInt(1, id);
+			statement.execute();
+			con.commit();
+		}
+		catch(Exception e){
+			con.rollback();
+			e.printStackTrace();
+			throw new Exception("Paiement non effac\u00e9, cr\u00e9ation \u00e9chou\u00e9e.");
+		}finally {
+			con.close();
+		}
+	}
 
 //	=================================================================================================================
 	static Vector<PaiementCotisation> DBToPaiementCotisation(ResultSet res)throws Exception{

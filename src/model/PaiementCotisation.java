@@ -41,7 +41,7 @@ public class PaiementCotisation {
 		return datePaiement;
 	}
 	public String getDatePaiementString() {
-		return DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(datePaiement);
+		return DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(getDatePaiement());
 	}
 
 	public void setDatePaiement(LocalDate datePaiement) {

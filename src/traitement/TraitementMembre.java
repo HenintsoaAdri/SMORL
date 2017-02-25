@@ -4,9 +4,12 @@ import java.text.NumberFormat;
 import java.util.Vector;
 
 import dao.MembreDAO;
+import dao.PaiementCongresDAO;
 import dao.PaiementCotisationDAO;
 import model.Cotisation;
+import model.DetailCongres;
 import model.Membre;
+import model.PaiementCongres;
 import model.PaiementCotisation;
 
 public class TraitementMembre {
@@ -29,5 +32,8 @@ public class TraitementMembre {
 	}
 	public static Vector<PaiementCotisation> getDetailPaiementCotisation(Cotisation c, Membre m) throws Exception{
 		return PaiementCotisationDAO.getPaiementCotisationByIdMembre(c, m.getId());
+	}
+	public static Vector<PaiementCongres> getDetailPaiementCongres(DetailCongres c, Membre m) throws Exception{
+		return PaiementCongresDAO.getPaiementCongresByIdMembre(c, m.getId());
 	}
 }

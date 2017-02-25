@@ -3,10 +3,10 @@ package traitement;
 
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.format.DateTimeParseException;
 import java.util.Vector;
 
 import dao.CotisationDAO;
-import dao.MembreDAO;
 import dao.PaiementCotisationDAO;
 import model.Cotisation;
 import model.Membre;
@@ -25,8 +25,8 @@ public class TraitementCotisation {
 		CotisationDAO.insertCotisation(cotisation);
 	}
 	
-	public static void modificationCotisation(String idCotisation, String dateCotisation, String montant) throws Exception{
-		Cotisation cotisation = new Cotisation(Integer.valueOf(idCotisation), Integer.valueOf(dateCotisation), Double.valueOf(montant),0,0);
+	public static void modificationCotisation(String idCotisation, String anneeCotisation, String montant) throws Exception{
+		Cotisation cotisation = new Cotisation(Integer.valueOf(idCotisation), Integer.valueOf(anneeCotisation), Double.valueOf(montant),0,0);
 		CotisationDAO.modify(cotisation);
 	}
 	
@@ -38,8 +38,20 @@ public class TraitementCotisation {
 	}
 
 	public static void insertionPaiement(String datePaiement, String montant, Membre membre, String year) throws Exception{
-		PaiementCotisation cotisation = new PaiementCotisation(0, LocalDate.parse(datePaiement), Double.valueOf(montant),
+		try{
+			PaiementCotisation cotisation = new PaiementCotisation(0, LocalDate.parse(datePaiement), Double.valueOf(montant),
 					membre, CotisationDAO.getCotisationByYear(Integer.parseInt(year)));
-		PaiementCotisationDAO.insertPaiementCotisation(cotisation);
+			PaiementCotisationDAO.insertPaiementCotisation(cotisation);
+		}catch (DateTimeParseException e){
+			throw new Exception("Date invalide");
+		}
+	}
+
+	public static void deletePaiement(String idPaiement) throws Exception{
+		try{
+			PaiementCotisationDAO.deletePaiementCotisation(Integer.parseInt(idPaiement));	
+		} catch(Exception e){
+			throw new Exception("Paiement invalide");
+		}
 	}
 }
