@@ -15,5 +15,9 @@ public class TraitementPaiementCotisation {
 					MembreDAO.getMembreById(Integer.parseInt(idMembre)), CotisationDAO.getCotisationByYear(Integer.parseInt(year)));
 		PaiementCotisationDAO.insertPaiementCotisation(cotisation);
 	}
+	
+	public static double getSomme(String annee, String idMembre) throws NumberFormatException, Exception{
+		return PaiementCotisationDAO.getSommePaye(Integer.parseInt(annee), Integer.parseInt(idMembre));
+	}
 
 }
