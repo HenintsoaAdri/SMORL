@@ -43,7 +43,7 @@ public class CongresDAO {
 	
 	public static Congres getCongresByID(int id) throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
-		String query = "SELECT * FROM LISTDETAILCONGRES WHERE IDCONGRES =?";
+		String query = "SELECT * FROM CONGRES WHERE IDCONGRES =?";
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			statement.setInt(1, id);

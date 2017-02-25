@@ -24,29 +24,15 @@
 	  	<div class="col-sm-12 form-horizontal">
 	  	<h3><% out.print(dc.getDesignation()); %></h3>
 	  	  <div class="form-group">
-<<<<<<< HEAD
-		    <label class="control-label col-sm-2">Montant objectif :</label>
-		    <div class="col-sm-4">
-		      <p class="form-control-static"><% out.print(dc.getMontantObjectifString()); %></p>
-		    </div>
-		    <label class="control-label col-sm-2" for="email">Reste &agrave; atteindre :</label>
-		    <div class="col-sm-4">
-		      <p class="form-control-static"><% out.print(dc.getResteString()); %></p>
-=======
 		    <label class="control-label col-sm-2">Montant &agrave; payer par personne :</label>
 		    <div class="col-sm-4">
 		      <p class="form-control-static"><% out.print(dc.getMontantString()); %></p>
->>>>>>> 07a4cc1349ddb6226b93be9370cd4679f3569b6f
 		    </div>
 		  </div>
 	  	  <div class="form-group">
 		    <label class="control-label col-sm-2" for="email">Nombre de contribuable :</label>
 		    <div class="col-sm-4">
-<<<<<<< HEAD
-		      <p class="form-control-static"><% out.print(dc.getContribuable()); %></p>
-=======
 		      <p class="form-control-static"><% out.print(dc.getContribuable()); %> sur <% out.print(TraitementMembre.getListMembre().size()); %> </p>
->>>>>>> 07a4cc1349ddb6226b93be9370cd4679f3569b6f
 		    </div>
 		    <label class="control-label col-sm-2" for="email">Montant r&eacute;colt&eacute; :</label>
 		    <div class="col-sm-4">
