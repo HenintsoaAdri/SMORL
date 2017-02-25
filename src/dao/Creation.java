@@ -12,10 +12,6 @@ import model.PaiementCotisation;
 import model.EtatCotisation;
 
 public class Creation {
-
-	public Creation() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	public static Membre creerMembre(ResultSet res) throws Exception{
 		Membre model = new Membre(
@@ -36,7 +32,9 @@ public class Creation {
 		Cotisation model = new Cotisation(
 				res.getInt("IDCOTISATION"), 
 				res.getInt("ANNEECOTISATION"), 
-				res.getDouble("MONTANT"));
+				res.getDouble("MONTANTOBJECTIF"),
+				res.getDouble("MONTANTPAYE"),
+				res.getInt("CONTRIBUABLE"));
 		return model;
 	}
 	
@@ -63,13 +61,25 @@ public class Creation {
 		return model;
 	}
 	
+	public static PaiementCotisation creerDetailCotisation(ResultSet res, Cotisation c) throws Exception{
+		PaiementCotisation model = new PaiementCotisation();
+				model.setMontant(res.getDouble("MONTANTPAYE"));
+				model.setMembre(creerMembre(res));
+				model.setCotisation(c);
+		return model;
+	}
+	
 	public static PaiementCotisation creerPaiementCotisation(ResultSet res) throws Exception{
+		return creerPaiementCotisation(res, creerCotisation(res));
+	}
+	
+	public static PaiementCotisation creerPaiementCotisation(ResultSet res, Cotisation c) throws Exception{
 		PaiementCotisation model = new PaiementCotisation(
 				res.getInt("IDPAIEMENTCOTISATION"), 
 				res.getDate("DATEPAIEMENT").toLocalDate(), 
 				res.getDouble("MONTANTPAYE"),
 				creerMembre(res),
-				creerCotisation(res));
+				c);
 		return model;
 	}
 	

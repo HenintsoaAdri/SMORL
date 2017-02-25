@@ -1,11 +1,8 @@
 package traitement;
 
-import java.util.Vector;
 
 import dao.CongresDAO;
-import dao.CotisationDAO;
 import model.Congres;
-import model.Cotisation;
 import model.DetailCongres;
 
 public class TraitementCongres {

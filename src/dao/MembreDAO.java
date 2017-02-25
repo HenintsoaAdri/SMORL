@@ -9,10 +9,6 @@ import java.sql.Date;
 import model.Membre;
 
 public class MembreDAO {
-
-	public MembreDAO() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	public static Vector<Membre> getMembre() throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
@@ -42,6 +38,26 @@ public class MembreDAO {
 			e.printStackTrace();
 			throw e;
 		}finally {
+			statement.close();
+			conn.close();
+		}
+	}
+
+	public static Membre get(int id) throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT * FROM MEMBRE WHERE IDMEMBRE = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		ResultSet res = null;
+		try {
+			statement.setInt(1, id);
+			res = statement.executeQuery();
+			if(res.next()) return Creation.creerMembre(res);
+			throw new Exception("Ce membre est introuvable");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			if(res != null)res.close();
 			statement.close();
 			conn.close();
 		}
@@ -101,7 +117,6 @@ public class MembreDAO {
 			statement.setString(7, p.getAdresse());
 			statement.setString(8, p.getProfession());
 			statement.setString(9, p.getCapacite());
-			statement.setInt(10, p.getId());
 			statement.execute();
 			con.commit();
 		}

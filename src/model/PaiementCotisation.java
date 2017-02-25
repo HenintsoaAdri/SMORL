@@ -1,7 +1,10 @@
 package model;
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
+import utilitaire.StringUtil;
 
 public class PaiementCotisation {
 	int id;
@@ -10,9 +13,7 @@ public class PaiementCotisation {
 	Membre membre;
 	Cotisation cotisation;
 
-	public PaiementCotisation() {
-		// TODO Auto-generated constructor stub
-	}
+	public PaiementCotisation() {}
 
 	public PaiementCotisation(int id, LocalDate datePaiement, double montant) {
 		this.setId(id);
@@ -39,6 +40,9 @@ public class PaiementCotisation {
 	public LocalDate getDatePaiement() {
 		return datePaiement;
 	}
+	public String getDatePaiementString() {
+		return DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).format(datePaiement);
+	}
 
 	public void setDatePaiement(LocalDate datePaiement) {
 		this.datePaiement = datePaiement;
@@ -46,6 +50,9 @@ public class PaiementCotisation {
 
 	public double getMontant() {
 		return montant;
+	}
+	public String getMontantString() {
+		return StringUtil.moneyToString(getMontant());
 	}
 
 	public void setMontant(double montant) {

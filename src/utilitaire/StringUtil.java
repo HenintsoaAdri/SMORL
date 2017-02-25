@@ -1,14 +1,10 @@
 package utilitaire;
-import java.security.Key;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-import javax.crypto.*;
-import javax.crypto.spec.SecretKeySpec;
-
-import sun.misc.*;
 public class StringUtil {
 	
 	public static boolean fullLetter(String string){
@@ -79,5 +75,9 @@ public class StringUtil {
     public static String formatDateTime(LocalDateTime local){
     	return DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).format(local.toLocalDate())+" à "+
     			DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).format(local.toLocalTime());
+    }
+    
+    public static String moneyToString(double money){
+    	return NumberFormat.getInstance().format(money) + " Ariary";
     }
 }

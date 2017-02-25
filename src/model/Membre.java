@@ -183,6 +183,9 @@ public class Membre {
 		return getProfession() + " - " + getCapacite();
 	}
 	public String getContact(){
-		return getTelephone() + "\n" + getEmail();
+		return getTelephone() + "<br>" + getEmail();
+	}
+	public String toString() {
+		return getFullName() + ", " + getSexeString() + " - " + getInformation();
 	}
 }

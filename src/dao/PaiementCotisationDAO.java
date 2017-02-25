@@ -7,15 +7,9 @@ import java.sql.ResultSet;
 import java.util.Vector;
 
 import model.Cotisation;
-import model.Membre;
-import model.PaiementCongres;
 import model.PaiementCotisation;
 
 public class PaiementCotisationDAO {
-
-	public PaiementCotisationDAO() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	public static Vector<PaiementCotisation> getPaiementCotisation() throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
@@ -32,13 +26,30 @@ public class PaiementCotisationDAO {
 		}
 	}
 	
-	public static Vector<PaiementCotisation> getPaiementCotisationByIdMembre(int id) throws Exception {
+	public static Vector<PaiementCotisation> getPaiementCotisationByIdMembre(Cotisation c, int id) throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
-		String query = "SELECT * FROM DETAILPAIEMENTCOTISATION WHERE IDMEMBRE =?";
+		String query = "SELECT * FROM DETAILPAIEMENTCOTISATION WHERE IDMEMBRE =? AND ANNEECOTISATION = ? ORDER BY DATEPAIEMENT ASC";
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			statement.setInt(1, id);
-			return DBToPaiementCotisation(statement.executeQuery());
+			statement.setInt(2, c.getAnneeCotisation());
+			return DBToPaiementCotisation(statement.executeQuery(),c);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			statement.close();
+			conn.close();
+		}
+	}
+	
+	public static Vector<PaiementCotisation> getPaiementMembreByCotisation(Cotisation c) throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT * FROM SOMMEPAYECOTISATION WHERE IDCOTISATION =?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		try {
+			statement.setInt(1, c.getId());
+			return DBToDetailCotisation(statement.executeQuery(), c);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -56,8 +67,10 @@ public class PaiementCotisationDAO {
 			statement.setInt(1, idmembre);
 			statement.setInt(2, annee);
 			ResultSet res = statement.executeQuery();
-			res.next();
-			return res.getDouble("MONTANTPAYE");
+			if(res.next()){
+				return res.getDouble("MONTANTPAYE");
+			}
+			return 0;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -97,6 +110,32 @@ public class PaiementCotisationDAO {
 			Vector<PaiementCotisation> model = new Vector<PaiementCotisation>();
 			while(res.next()){
 				model.add(Creation.creerPaiementCotisation(res));
+			}
+			return model;
+		}catch(Exception e){
+			throw e;
+		}finally {
+			res.close();
+		}
+	}
+	static Vector<PaiementCotisation> DBToPaiementCotisation(ResultSet res, Cotisation c)throws Exception{
+		try{
+			Vector<PaiementCotisation> model = new Vector<PaiementCotisation>();
+			while(res.next()){
+				model.add(Creation.creerPaiementCotisation(res, c));
+			}
+			return model;
+		}catch(Exception e){
+			throw e;
+		}finally {
+			res.close();
+		}
+	}
+	static Vector<PaiementCotisation> DBToDetailCotisation(ResultSet res, Cotisation c)throws Exception{
+		try{
+			Vector<PaiementCotisation> model = new Vector<PaiementCotisation>();
+			while(res.next()){
+				model.add(Creation.creerDetailCotisation(res, c));
 			}
 			return model;
 		}catch(Exception e){

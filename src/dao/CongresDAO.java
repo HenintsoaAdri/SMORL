@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.Vector;
 
 import model.Congres;
-import model.Cotisation;
 import model.DetailCongres;
 
 public class CongresDAO {

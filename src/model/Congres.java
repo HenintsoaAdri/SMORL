@@ -7,9 +7,7 @@ public class Congres {
 	String nom;
 	Vector<DetailCongres> detailCongres;
 
-	public Congres() {
-		// TODO Auto-generated constructor stub
-	}
+	public Congres() {}
 
 	public Congres(int id, String nom) {
 		super();
