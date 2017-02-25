@@ -25,6 +25,21 @@ public class MembreDAO {
 		}
 	}
 	
+	public static Vector<Membre> getMembreNonContribuable() throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT * FROM LISTEMEMBRENONCONTRIBUABLE";
+		PreparedStatement statement = conn.prepareStatement(query);
+		try {
+			return DBToMembre(statement.executeQuery());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			statement.close();
+			conn.close();
+		}
+	}
+	
 	public static Membre getMembreById(int id) throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
 		String query = "SELECT * FROM MEMBRE WHERE IDMEMBRE = ?";

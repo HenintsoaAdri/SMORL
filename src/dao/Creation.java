@@ -32,7 +32,7 @@ public class Creation {
 		Cotisation model = new Cotisation(
 				res.getInt("IDCOTISATION"), 
 				res.getInt("ANNEECOTISATION"), 
-				res.getDouble("MONTANTOBJECTIF"),
+				res.getDouble("MONTANT"),
 				res.getDouble("MONTANTPAYE"),
 				res.getInt("CONTRIBUABLE"));
 		return model;

@@ -109,9 +109,9 @@
 				    <div class="col-sm-4">
 				      <p class="form-control-static"><% out.print(c.getAnneeCotisation()); %></p>
 				    </div>
-				    <label class="control-label col-sm-2" for="email">Montant r&eacute;colt&eacute; :</label>
+				    <label class="control-label col-sm-2" for="email">Montant &agrave; payer  :</label>
 				    <div class="col-sm-4">
-				      <p class="form-control-static"><% out.print(c.getMontantPayeString()); %></p>
+				      <p class="form-control-static"><% out.print(c.getMontantString()); %></p>
 				    </div>
 				</div>
 		  	  	<div class="form-group">
@@ -119,9 +119,9 @@
 				    <div class="col-sm-4">
 				      <p class="form-control-static"><% out.print(TraitementMembre.getSommePayeCotisation(c, m)); %></p>
 				    </div>
-				    <label class="control-label col-sm-2" for="email">Reste &agrave; atteindre :</label>
+				    <label class="control-label col-sm-2" for="email">Reste &agrave; payer :</label>
 				    <div class="col-sm-4">
-				      <p class="form-control-static"><% out.print(c.getResteString()); %></p>
+				      <p class="form-control-static"><% out.print(c.getResteString(m)); %></p>
 				    </div>
 				</div>
 			  </div>

@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="../css/bootstrap.min.css">
-<title>SM ORL - Cotisation Annuelle</title>
+<title>SMORL - Cotisation Annuelle</title>
 </head>
 <body>
 	<div class="container">
@@ -45,7 +45,7 @@
 		 <thead>
 		   <tr>
 		     <th>Ann&eacute;e</th>
-		     <th>Montant objectif</th>
+		     <th>Montant</th>
 		     <th>Montant r&eacute;colt&eacute;</th>
 		     <th>Nombre de contribuable</th>
 		     <th></th>
@@ -55,9 +55,9 @@
 		 <% for(Cotisation c : TraitementCotisation.getListCotisation()){ %>
 		   <tr>
 		     <td><% out.print(c.getAnneeCotisation()); %></td>
-		     <td><% out.print(c.getMontantObjectifString()); %></td>
+		     <td><% out.print(c.getMontantString()); %></td>
 		     <td><% out.print(c.getMontantPayeString()); %></td>
-		     <td><% out.print(c.getContribuable()); %></td>
+		     <td><% out.print(c.getContribuable()); %> sur <% out.print(TraitementMembre.getListMembre().size()); %></td>
 		     <td><a class="btn btn-danger" href="details.jsp?cotisation=<% out.print(c.getAnneeCotisation()); %>">Voir <span class="glyphicon glyphicon-chevron-right"></span></a></td>
 		   </tr>
 		 <% } %>
@@ -82,7 +82,7 @@
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label class="control-label col-sm-3" for="montant">Montant Objectif :</label>
+		    <label class="control-label col-sm-3" for="montant">Montant à payer par personne :</label>
 		    <div class="col-sm-9"> 
 		      <input type="text" class="form-control" name="montant" value="<% out.print(montant); %>">
 		    </div>

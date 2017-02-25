@@ -2,21 +2,24 @@ package model;
 
 import java.util.Vector;
 
+import dao.MembreDAO;
+import dao.PaiementCotisationDAO;
 import utilitaire.StringUtil;
 
 public class Cotisation {
 	int id;
 	int anneeCotisation;
-	double montantObjectif;
+	double montant;
 	double montantPaye;
 	int contribuable;
 	Vector<PaiementCotisation> detailPaiement;
+	
 	public Cotisation() {}
 
-	public Cotisation(int id, int anneeCotisation, double montantObjectif, double montantPaye, int contribuable) {
+	public Cotisation(int id, int anneeCotisation, double montant, double montantPaye, int contribuable) {
 		this.setId(id);
 		this.setAnneeCotisation(anneeCotisation);
-		this.setMontantObjectif(montantObjectif);
+		this.setMontant(montant);
 		this.setMontantPaye(montantPaye);
 		this.setContribuable(contribuable);
 	}
@@ -37,15 +40,15 @@ public class Cotisation {
 		this.anneeCotisation = anneeCotisation;
 	}
 	
-	public double getMontantObjectif() {
-		return montantObjectif;
+	public double getMontant() {
+		return montant;
 	}
-	public String getMontantObjectifString() {
-		return StringUtil.moneyToString(getMontantObjectif());
+	public String getMontantString() {
+		return StringUtil.moneyToString(getMontant());
 	}
 	
-	public void setMontantObjectif(double montantObjectif) {
-		this.montantObjectif = montantObjectif;
+	public void setMontant(double montant) {
+		this.montant = montant;
 	}
 
 	public double getMontantPaye() {
@@ -74,10 +77,14 @@ public class Cotisation {
 	public void setDetailPaiement(Vector<PaiementCotisation> detailPaiement) {
 		this.detailPaiement = detailPaiement;
 	}
-	public double getReste(){
-		return getMontantObjectif() - getMontantPaye();
+	public double getReste(Membre m) throws Exception{
+		double sommeParMembre = PaiementCotisationDAO.getSommePaye(this.getAnneeCotisation(), m.getId());
+		if(getMontant() - sommeParMembre < 0){
+			return 0;
+		}
+		return getMontant() - sommeParMembre;
 	}
-	public String getResteString(){
-		return StringUtil.moneyToString(getReste());
+	public String getResteString(Membre m) throws Exception{
+		return StringUtil.moneyToString(getReste(m));
 	}
 }
