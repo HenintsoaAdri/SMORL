@@ -13,10 +13,25 @@ public class CongresDAO {
 	
 	public static Vector<Congres> getCongres() throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
-		String query = "SELECT * FROM CONGRESDETAILVIEW";
+		String query = "SELECT * FROM CONGRES";
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			return DBToCongres(statement.executeQuery());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			statement.close();
+			conn.close();
+		}
+	}
+	public static void getDetailCongres(Congres c) throws Exception {
+		Connection conn = UtilDB.getConnPostgre();
+		String query = "SELECT * FROM LISTDETAILCONGRES WHERE IDCONGRES = ?";
+		PreparedStatement statement = conn.prepareStatement(query);
+		try {
+			statement.setInt(1, c.getId());
+			DBToDetailCongres(statement.executeQuery(),c);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -32,7 +47,7 @@ public class CongresDAO {
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			statement.setInt(1, id);
-			return DBToCongresDetail(statement.executeQuery());
+			return DBToUniqueCongres(statement.executeQuery());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -44,11 +59,12 @@ public class CongresDAO {
 	
 	public static Congres getCongresByNom(String nom) throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
-		String query = "SELECT * FROM CONGRESDETAILVIEW WHERE NOMCONGRES =?";
+		String query = "SELECT * FROM CONGRES WHERE NOMCONGRES =?";
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			statement.setString(1, nom);
-			return DBToCongresDetail(statement.executeQuery());
+			return DBToUniqueCongres(statement.executeQuery());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -139,9 +155,25 @@ public class CongresDAO {
 		try{
 			Vector<Congres> model = new Vector<Congres>();
 			while(res.next()){
-				model.add(DBToCongresDetail(res));
+				Congres c = Creation.creerCongres(res);
+				getDetailCongres(c);
+				model.add(c);
 			}
 			return model;
+		}catch(Exception e){
+			throw e;
+		}finally {
+			res.close();
+		}
+	}
+	static Congres DBToUniqueCongres(ResultSet res)throws Exception{
+		try{
+			if(res.next()){
+				Congres c = Creation.creerCongres(res);
+				getDetailCongres(c);
+				return c;
+			}
+			throw new Exception("Nous ne retrouvons pas ce congr&egrave;s");
 		}catch(Exception e){
 			throw e;
 		}finally {
@@ -162,6 +194,17 @@ public class CongresDAO {
 			}
 			model.setDetailCongres(ltdetailcongres);
 			return model;
+		}catch(Exception e){
+			throw e;
+		}
+	}
+	static void DBToDetailCongres(ResultSet res, Congres model) throws Exception {
+		try{
+			Vector<DetailCongres> ltdetailcongres = new Vector<DetailCongres>();
+			while(res.next()){
+				ltdetailcongres.add(Creation.creerDetailCongres(res, model));
+			}
+			model.setDetailCongres(ltdetailcongres);
 		}catch(Exception e){
 			throw e;
 		}

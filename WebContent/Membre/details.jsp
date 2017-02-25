@@ -79,7 +79,7 @@
 			String anneeCotisation = Year.now().toString();
 			String montant = "";
 			try{
-				if(request.getParameter("add")!=null){
+				if(request.getParameter("add")!= null){
 					datePaiement = request.getParameter("datePaiement");
 					anneeCotisation = request.getParameter("anneeCotisation");
 					montant = request.getParameter("montant");
@@ -152,12 +152,13 @@
 	  </div>
 	  <div class="row well">
 	  	<div class="col-s12">
-	  	  	<h3>Cotisation de congr&eacute;s</h3>
-	  	  <% for(Congres congres : TraitementCongres.getListCongres()){   
-	  		
+	  	  	<h2>Cotisation de congr&eacute;s</h2>
+	 <% for(Congres congres : TraitementCongres.getListCongres()){
 			String montantCongres = "";
 			try{
-				if(request.getParameter("add") == "annuelle"){
+				String idCongres = "";
+				if(request.getParameter("addCongres") != null) idCongres = request.getParameter("addCongres");
+				if(idCongres.compareTo(String.valueOf(congres.getId()))==0){
 					datePaiement = request.getParameter("datePaiement");
 					montantCongres = request.getParameter("montantCongres");
 					String detailCongres = request.getParameter("detailCongres");
@@ -170,7 +171,7 @@
 				</div>
 			  </div>
 			<%	}	
-			} catch(Exception e){ %>
+			} catch(Exception e){ e.printStackTrace();%>
 			  <div class="row">
 				<div class="alert alert-warning">
 		  		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -180,18 +181,21 @@
 		 <% } %>
 	  	  <div class="row">
 	  	  	<div class="col-sm-12">
+	  	  	  <div class="row">
 		  	  	<div class="col-sm-6 text-right">
-		  	  		<h4>Congr&egrave;s <% out.print(congres.getNom()); %></h4>
+		  	  		<h3>Congr&egrave;s <% out.print(congres.getNom()); %></h3>
 		  	  	</div>
 		  	  	<div class="col-sm-6 text-right">
 		  	  		<button class="btn btn-primary" data-toggle="modal" data-target="#congres<% out.print(congres.getId()); %>"><span class="glyphicon glyphicon-plus-sign"></span> Payer une cotisation</button>
 		  	  	</div>
+		  	  </div>
 		  	   <%
 		  	   for (DetailCongres dc : congres.getDetailCongres()){%>
+	  	  	  <div class="row">
+		  	   <h4><span class="glyphicon glyphicon-pushpin"></span> <% out.print(dc.getDesignation()); %></h4>
 		  	    <table class="table table-striped table-hover">
 			   	  <thead>
 			   	  	<tr>
-			   	  	  <th>D&eacute;signation</th>
 			      	  <th>Montant pay&eacute;</th>
 			       	  <th>Date de paiement</th>
 			      	  <th></th>
@@ -201,7 +205,6 @@
 			    <% for(PaiementCongres p : TraitementMembre.getDetailPaiementCongres(dc,m)){ %>
 			    <form method="post">
 			      <tr>
-			      	<td><% out.print(p.getCongres().getDesignation()); %></td>
 			        <td><% out.print(p.getMontantString()); %></td>
 			        <td><% out.print(p.getDatePaiementString()); %></td>
 			        <td><button class="btn btn-warning" type="submit" name="deleteAnnuelle" value="<% out.print(p.getId());%>"><span class="glyphicon glyphicon-trash"></span> Supprimer ce paiement</button></td>
@@ -213,6 +216,7 @@
 			      </tr>
 			      </tbody>
 			    </table>
+		  	  </div>
 			    <% } %>
 		  	 </div>
 			  
@@ -227,9 +231,15 @@
       <div class="modal-body">
       	<form class="form-horizontal" method="post">
 		  <div class="form-group">
-		    <label class="control-label col-sm-3" for="detailcongres">Cotisation :</label>
+		    <label class="control-label col-sm-3" for="datePaiement">Date de paiement :</label>
+		    <div class="col-sm-9"> 
+		      <input type="date" class="form-control" name="datePaiement" value="<% out.print(datePaiement); %>">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="control-label col-sm-3" for="detailCongres">Cotisation :</label>
 		    <div class="col-sm-9">
-			  <select class="form-control" name="detailcongres">
+			  <select class="form-control" name="detailCongres">
 			  	<% for(DetailCongres dc : congres.getDetailCongres()){ %>
 			    <option value="<% out.print(dc.getId()); %>"><% out.print(dc.getDesignation()); %></option>
 			    <% } %>
@@ -244,7 +254,7 @@
 		  </div>
 		  <div class="form-group"> 
 		    <div class="col-sm-offset-3 col-sm-9">
-		      <button type="submit" class="btn btn-success" name="add" value="congres1">Ajouter</button>
+		      <button type="submit" class="btn btn-success" name="addCongres" value="<% out.print(congres.getId()); %>">Ajouter</button>
 		    </div>
 		  </div>
 		</form>

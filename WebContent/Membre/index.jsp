@@ -52,6 +52,7 @@
 	  <div class="row">
 		<a href="../"  class="btn btn-default col-sm-2 col-sm-offset-5"><span class="glyphicon glyphicon-home"></span></a>
 	  </div>
+	  <hr>
 	  <div class="row">
 	  	<h2>Liste des membres</h2>
 	  	<button class="btn btn-success" data-toggle="modal" data-target="#nouveau"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter un nouveau membre</button>

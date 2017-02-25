@@ -65,14 +65,15 @@ public class PaiementCongresDAO {
 	public static void insertPaiementCongres(PaiementCongres p) throws Exception{
     	Connection con = UtilDB.getConnPostgre();
     	con.setAutoCommit(false);
-    	String req = "INSERT INTO PAIEMENTCONGRES (DATEPAIEMENT,MONTANT,IDDETAILCONGRES) "
-    			+ "VALUES (?,?,?)";
+    	String req = "INSERT INTO PAIEMENTCONGRES (DATEPAIEMENT,MONTANT,IDDETAILCONGRES,IDMEMBRE) "
+    			+ "VALUES (?,?,?,?)";
 	
 		PreparedStatement statement = con.prepareStatement(req);
 		try{
 			statement.setDate(1, Date.valueOf(p.getDatePaiement()));
 			statement.setDouble(2, p.getMontant());
 			statement.setInt(3, p.getCongres().getId());
+			statement.setInt(4, p.getMembre().getId());
 			statement.execute();
 			con.commit();
 		}
