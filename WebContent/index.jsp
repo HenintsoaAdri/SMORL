@@ -14,7 +14,11 @@
 		<div class="btn-group-vertical col-sm-6 col-sm-offset-3">
 		  <a href="Membre" class="btn btn-lg btn-primary">Liste des membres</a>
 		  <a href="Annuelle" class="btn btn-lg btn-primary">Cotisation Annuelle</a>
+<<<<<<< HEAD
 		  <a href="Congres" class="btn btn-lg btn-primary">Cotisation par Congr&egrave;s</a>
+=======
+		  <a href="Congres" class="btn btn-lg btn-primary">Contisation par Congr&eacute;s</a>
+>>>>>>> 07a4cc1349ddb6226b93be9370cd4679f3569b6f
 		</div>
 	  </div>
 	</div>

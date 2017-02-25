@@ -79,7 +79,7 @@
 			String anneeCotisation = Year.now().toString();
 			String montant = "";
 			try{
-				if(request.getParameter("add")!= null){
+				if(request.getParameter("addCotisation")!=null){
 					datePaiement = request.getParameter("datePaiement");
 					anneeCotisation = request.getParameter("anneeCotisation");
 					montant = request.getParameter("montant");
@@ -110,9 +110,9 @@
 				    <div class="col-sm-4">
 				      <p class="form-control-static"><% out.print(c.getAnneeCotisation()); %></p>
 				    </div>
-				    <label class="control-label col-sm-2" for="email">Montant r&eacute;colt&eacute; :</label>
+				    <label class="control-label col-sm-2" for="email">Montant &agrave; payer  :</label>
 				    <div class="col-sm-4">
-				      <p class="form-control-static"><% out.print(c.getMontantPayeString()); %></p>
+				      <p class="form-control-static"><% out.print(c.getMontantString()); %></p>
 				    </div>
 				</div>
 		  	  	<div class="form-group">
@@ -120,9 +120,9 @@
 				    <div class="col-sm-4">
 				      <p class="form-control-static"><% out.print(TraitementMembre.getSommePayeCotisation(c, m)); %></p>
 				    </div>
-				    <label class="control-label col-sm-2" for="email">Reste &agrave; atteindre :</label>
+				    <label class="control-label col-sm-2" for="email">Reste &agrave; payer :</label>
 				    <div class="col-sm-4">
-				      <p class="form-control-static"><% out.print(c.getResteString()); %></p>
+				      <p class="form-control-static"><% out.print(c.getResteString(m)); %></p>
 				    </div>
 				</div>
 			  </div>
@@ -170,7 +170,7 @@
 				  <strong>Succ&egrave;s!</strong> Cotisation ins&eacute;r&eacute;.
 				</div>
 			  </div>
-			<%	}	
+			<%	}
 			} catch(Exception e){ e.printStackTrace();%>
 			  <div class="row">
 				<div class="alert alert-warning">
@@ -212,7 +212,7 @@
 			    </form>
 			    <% } %>
 			      <tr colspan="4">
-			      	<td>Reste &agrave; payer : <% out.print(dc.getResteString()); %></td>
+			      	<td>Reste &agrave; payer : <% out.print(dc.getResteString(m)); %></td>
 			      </tr>
 			      </tbody>
 			    </table>
@@ -296,7 +296,7 @@
 		  </div>
 		  <div class="form-group"> 
 		    <div class="col-sm-offset-3 col-sm-9">
-		      <button type="submit" class="btn btn-success" name="add" value="annuelle">Ajouter</button>
+		      <button type="submit" class="btn btn-success" name="addCotisation">Payer</button>
 		    </div>
 		  </div>
 		</form>

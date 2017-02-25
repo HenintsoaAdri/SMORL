@@ -50,6 +50,7 @@ public class TraitementCongres {
 					membre, new DetailCongres(Integer.parseInt(idDetailCongres),"",0));
 			PaiementCongresDAO.insertPaiementCongres(paiement);
 		}catch (DateTimeParseException e){
+			e.printStackTrace();
 			throw new Exception("Date invalide");
 		}
 	}
@@ -58,6 +59,7 @@ public class TraitementCongres {
 		try{
 			PaiementCotisationDAO.deletePaiementCotisation(Integer.parseInt(idPaiement));	
 		} catch(Exception e){
+			e.printStackTrace();
 			throw new Exception("Paiement invalide");
 		}
 	}

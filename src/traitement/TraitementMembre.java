@@ -21,6 +21,9 @@ public class TraitementMembre {
 	public static Vector<Membre> getListMembre()throws Exception{
 		return MembreDAO.getMembre();
 	}
+	public static Vector<Membre> getListMembreNonContribuable()throws Exception{
+		return MembreDAO.getMembreNonContribuable();
+	}
 	public static Membre get(String id) throws Exception{
 		return get(Integer.parseInt(id));
 	}

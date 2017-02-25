@@ -19,7 +19,7 @@ public class PaiementCongresDAO {
 			statement.setInt(1, idmembre);
 			statement.setInt(2, iddetailcongres);
 			ResultSet res = statement.executeQuery();
-			res.next();
+			if(res.next())
 			return res.getDouble("MONTANTPAYE");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -28,6 +28,7 @@ public class PaiementCongresDAO {
 			statement.close();
 			conn.close();
 		}
+		return 0;
 	}
 
 	public static Vector<PaiementCongres> getPaiementMembreByDetailCongres(DetailCongres dc) throws Exception {
@@ -64,7 +65,6 @@ public class PaiementCongresDAO {
 	}
 	public static void insertPaiementCongres(PaiementCongres p) throws Exception{
     	Connection con = UtilDB.getConnPostgre();
-    	con.setAutoCommit(false);
     	String req = "INSERT INTO PAIEMENTCONGRES (DATEPAIEMENT,MONTANT,IDDETAILCONGRES,IDMEMBRE) "
     			+ "VALUES (?,?,?,?)";
 	

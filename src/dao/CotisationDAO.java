@@ -55,7 +55,7 @@ public class CotisationDAO {
     			+ " WHERE IDCOTISATION = ?";
 		PreparedStatement statement = con.prepareStatement(req);
 		try{
-			statement.setDouble(1, p.getMontantObjectif());
+			statement.setDouble(1, p.getMontant());
 			statement.setInt(1, p.getId());
 			statement.execute();
 			con.commit();
@@ -77,7 +77,7 @@ public class CotisationDAO {
 	
 		PreparedStatement statement = con.prepareStatement(req);
 		try{
-			statement.setDouble(1, p.getMontantObjectif());
+			statement.setDouble(1, p.getMontant());
 			statement.setInt(2, p.getAnneeCotisation());
 			statement.execute();
 			con.commit();
@@ -88,7 +88,7 @@ public class CotisationDAO {
 					con.rollback();
 					req = "UPDATE COTISATION SET MONTANTOBJECTIF = ? WHERE ANNEECOTISATION = ?";
 					statement = con.prepareStatement(req);
-					statement.setDouble(1, p.getMontantObjectif());
+					statement.setDouble(1, p.getMontant());
 					statement.setInt(2, p.getAnneeCotisation());
 					statement.execute();
 					con.commit();

@@ -43,7 +43,7 @@ public class CongresDAO {
 	
 	public static Congres getCongresByID(int id) throws Exception {
 		Connection conn = UtilDB.getConnPostgre();
-		String query = "SELECT * FROM CONGRESDETAILVIEW WHERE IDCONGRES =?";
+		String query = "SELECT * FROM LISTDETAILCONGRES WHERE IDCONGRES =?";
 		PreparedStatement statement = conn.prepareStatement(query);
 		try {
 			statement.setInt(1, id);
@@ -102,7 +102,7 @@ public class CongresDAO {
 		PreparedStatement statement = con.prepareStatement(req);
 		try{
 			statement.setString(1, d.getDesignation());
-			statement.setDouble(2, d.getMontantObjectif());
+			statement.setDouble(2, d.getMontant());
 			statement.setInt(2, d.getCongres().getId());
 			statement.setInt(3, d.getId());
 			statement.execute();
@@ -135,7 +135,7 @@ public class CongresDAO {
 				PreparedStatement statement2 = con.prepareStatement(req2);
 				
 				statement2.setString(1, det.getDesignation());
-				statement2.setDouble(2, det.getMontantObjectif());
+				statement2.setDouble(2, det.getMontant());
 				statement2.execute();
 			}
 			

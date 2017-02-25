@@ -26,25 +26,19 @@
 		    <div class="col-sm-4">
 		      <p class="form-control-static"><% out.print(c.getAnneeCotisation()); %></p>
 		    </div>
-		    <label class="control-label col-sm-2">Montant objectif :</label>
+		    <label class="control-label col-sm-2">Montant &agrave; payer :</label>
 		    <div class="col-sm-4">
-		      <p class="form-control-static"><% out.print(c.getMontantObjectifString()); %></p>
+		      <p class="form-control-static"><% out.print(c.getMontantString()); %></p>
 		    </div>
 		  </div>
 	  	  <div class="form-group">
 		    <label class="control-label col-sm-2" for="email">Nombre de contribuable :</label>
 		    <div class="col-sm-4">
-		      <p class="form-control-static"><% out.print(c.getContribuable()); %></p>
+		      <p class="form-control-static"><% out.print(c.getContribuable()); %> sur <% out.print(TraitementMembre.getListMembre().size()); %> </p>
 		    </div>
 		    <label class="control-label col-sm-2" for="email">Montant r&eacute;colt&eacute; :</label>
 		    <div class="col-sm-4">
 		      <p class="form-control-static"><% out.print(c.getMontantPayeString()); %></p>
-		    </div>
-		  </div>
-	  	  <div class="form-group">
-		    <label class="control-label col-sm-2" for="email">Reste &agrave; atteindre :</label>
-		    <div class="col-sm-4">
-		      <p class="form-control-static"><% out.print(c.getResteString()); %></p>
 		    </div>
 		  </div>
 	  	</div>
@@ -69,6 +63,32 @@
 			      <tr>
 			        <td><% out.print(p.getMembre()); %></td>
 			        <td><% out.print(p.getMontantString()); %></td>
+			      </tr>
+			    <% } %>
+			    </tbody>
+			  </table>
+	  	  </div>
+		</div>  
+	  </div>
+	  
+	  <div class="row well">
+	  	<div class="col-sm-12">
+	  	  <div class="row">
+	  	  	<div class="col-sm-6">
+	  	  		<h3>Membre n'ayant pas encore pay&eacute;</h3>
+	  	  	</div>
+	  	  </div>
+	  	  <div class="row">
+		  	  <table class="table table-striped table-hover col-sm-12">
+			    <thead>
+			      <tr>
+			        <th>Membre</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			    <% for(Membre mem : TraitementMembre.getListMembreNonContribuable()){%>
+			      <tr>
+			        <td><% out.print(mem); %></td>
 			      </tr>
 			    <% } %>
 			    </tbody>
