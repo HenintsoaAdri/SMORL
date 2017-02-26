@@ -15,6 +15,9 @@ public class UtilDB {
 				throw new Exception("Aucune connexion établie");
 			}
 		}
+		catch(ClassNotFoundException e){
+			throw new Exception("Veuillez inclure le driver de postgres");
+		}
 		catch(Exception e){
 			throw e;
 		}

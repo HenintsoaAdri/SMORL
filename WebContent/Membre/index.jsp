@@ -12,6 +12,7 @@
 	<div class="container">
 	<hr>
 	<%
+try{
 	String nom = "";
 	String prenom = "";
 	String dateNaissance = "";
@@ -163,6 +164,14 @@
     </div>
 
   </div>
+<%	} catch(Exception e){ %>
+	  <div class="row">
+		<div class="alert alert-warning">
+  		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		  <strong>Probl&egrave;me!</strong> <% out.print(e.getMessage()); %>.
+		</div>
+	  </div>
+ <% } %>
 </div>
 <script src="../js/jquery-3.1.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>

@@ -146,7 +146,7 @@
 			      <tr>
 			        <td><% out.print(p.getMontantString()); %></td>
 			        <td><% out.print(p.getDatePaiementString()); %></td>
-			        <td><button class="btn btn-warning" type="submit" name="deleteAnnuelle" value="<% out.print(p.getId());%>"><span class="glyphicon glyphicon-trash"></span> Supprimer ce paiement</button></td>
+			        <td><button class="btn btn-danger" type="submit" name="deleteAnnuelle" value="<% out.print(p.getId());%>"><span class="glyphicon glyphicon-trash"></span> Supprimer ce paiement</button></td>
 			      </tr>
 			    </form>
 			    <% } %>
