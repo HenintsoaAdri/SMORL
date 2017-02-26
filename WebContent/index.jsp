@@ -17,6 +17,7 @@
 		  <a href="Congres" class="btn btn-lg btn-primary">Cotisation par Congr&egrave;s</a>
 		</div>
 	  </div>
+	  	<hr>
 	</div>
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

@@ -18,7 +18,13 @@
 <%  	try{
 			if(request.getParameter("membre") == null) throw new Exception("Il vous faut choisir un membre"); 
 			Membre m = TraitementMembre.get(request.getParameter("membre")); %>
-	  <div class="row well">
+	 <ul class="nav nav-tabs  nav-justified">
+	  <li class="active"><a data-toggle="tab" href="#tabMembre">Membre</a></li>
+	  <li><a data-toggle="tab" href="#tabAnnuelle">Cotisation annuelle</a></li>
+	  <li><a data-toggle="tab" href="#tabCongres">Cotisation congr&egrave;s</a></li>
+	</ul>
+	<div class="tab-content">
+	  <div id="tabMembre" class="row well tab-pane fade in active">
 	  	<div class="col-sm-12 form-horizontal">
 	  	<h3>Membre</h3>
 	  	  <div class="form-group">
@@ -63,7 +69,7 @@
 		  </div>
 	  	</div>
 	  </div>
-	  <div class="row well">
+	  <div id="tabAnnuelle" class="row well tab-pane fade">
 	  	<div class="col-sm-12">
 	  	  <div class="row">
 	  	  	<div class="col-sm-6">
@@ -150,7 +156,7 @@
 	  	  <% } %>
 		</div>  
 	  </div>
-	  <div class="row well">
+	  <div id="tabCongres" class="row well tab-pane fade">
 	  	<div class="col-s12">
 	  	  	<h2>Cotisation de congr&eacute;s</h2>
 	 <% for(Congres congres : TraitementCongres.getListCongres()){ %>
@@ -191,7 +197,7 @@
 				 <% } %>
 	  	  	  <div class="row">
 		  	   <h4><span class="glyphicon glyphicon-pushpin"></span> <% out.print(dc.getDesignation()); %></h4>
-		  	    <table class="table table-striped table-hover">
+		  	    <table class="table table-striped table-hover table-responsive table-condensed">
 			   	  <thead>
 			   	  	<tr>
 			      	  <th>Montant pay&eacute;</th>
@@ -205,12 +211,12 @@
 			      <tr>
 			        <td><% out.print(p.getMontantString()); %></td>
 			        <td><% out.print(p.getDatePaiementString()); %></td>
-			        <td><button class="btn btn-warning" type="submit" name="deleteCongres" value="<% out.print(p.getId());%>"><span class="glyphicon glyphicon-trash"></span> Supprimer ce paiement</button></td>
+			        <td><button class="btn btn-danger" type="submit" name="deleteCongres" value="<% out.print(p.getId());%>"><span class="glyphicon glyphicon-trash"></span> Supprimer ce paiement</button></td>
 			      </tr>
 			    </form>
 			    <% } %>
-			      <tr colspan="4">
-			      	<td>Reste &agrave; payer : <% out.print(dc.getResteString(m)); %></td>
+			      <tr class="warning">
+			      	<td colspan="4">Reste &agrave; payer : <% out.print(dc.getResteString(m)); %></td>
 			      </tr>
 			      </tbody>
 			    </table>
@@ -264,6 +270,7 @@
 	  	 <% } %>
 		</div>  
 	  </div>
+	</div>
 <div id="annuelle" class="modal fade" role="dialog">
   <div class="modal-dialog">
 

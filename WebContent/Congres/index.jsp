@@ -28,7 +28,7 @@
 	  <div class="row">
 		<div class="alert alert-success">
   		  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		  <strong>Succ&egrave;s!</strong> Cotisation ins&eacute;r&eacute;.
+		  <strong>Succ&egrave;s!</strong> Congr&egrave; ins&eacute;r&eacute;.
 		</div>
 	  </div>
 	<%	}
